@@ -45,3 +45,6 @@ storybook-static
 
 # claude code temp files
 tmpclaude-*-cwd
+
+# claude code local settings
+.claude/settings.local.json
