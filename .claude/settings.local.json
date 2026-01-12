@@ -2,7 +2,17 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Skill(project:design)"
+      "Skill(project:design)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npx create-next-app@latest .nextjs-temp --yes)",
+      "Bash(npx create-next-app@latest nextjs-temp --yes)",
+      "Bash(npm install:*)",
+      "Bash(npx storybook@latest init:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add button card avatar badge input label textarea select skeleton --yes)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(gh issue list:*)"
     ]
   }
 }

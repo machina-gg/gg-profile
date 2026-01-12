@@ -53,7 +53,8 @@
 | `/project:requirements` | 要件定義を行う |
 | `/project:design` | 設計を行う |
 | `/project:api` | API設計を行う |
-| `/project:implement` | 実装を行う |
+| `/project:prototype` | プロトタイプ実装（デザイン確認用） |
+| `/project:implement` | 本実装を行う |
 | `/project:continue` | 進捗確認・作業再開 |
 | `/project:review` | コードレビューと修正 |
 | `/project:deploy` | デプロイを行う |
@@ -67,10 +68,22 @@
 `/project:implement` で src/ が存在しない場合に実行：
 
 ### 4.1 Next.js プロジェクト作成
+
+既存ファイル（docs/PRD.md 等）がある場合、`create-next-app` は直接実行できないため、一時ディレクトリを経由する：
+
 ```bash
-npx create-next-app@latest . --yes
+# 1. 一時ディレクトリで Next.js プロジェクトを作成
+npx create-next-app@latest .nextjs-temp --yes
+
+# 2. 生成されたファイルを現在のディレクトリにコピー（既存ファイルは上書きしない）
+cp -rn .nextjs-temp/* .nextjs-temp/.[!.]* . 2>/dev/null || true
+
+# 3. 一時ディレクトリを削除
+rm -rf .nextjs-temp
 ```
+
 ※ `--yes` でデフォルト設定（TypeScript, Tailwind CSS, ESLint, App Router, Turbopack）が適用されます
+※ `-n` オプションで既存ファイル（CLAUDE.md, docs/ 等）は保持されます
 
 ### 4.2 追加パッケージのインストール
 ```bash
@@ -301,7 +314,27 @@ export default function RootLayout({ children }) {
 
 ---
 
-## 8. 禁止事項
+## 8. 作業履歴ルール
+
+**すべての作業は reports/WORK_LOG.md に記録すること。**
+
+### 必須記録タイミング
+1. **コマンド実行時**: 各 `/project:*` コマンド完了時に必ず記録
+2. **チャット対応時**: ユーザー要望でファイルを変更した場合に記録
+
+### 記録を忘れやすいケース（注意）
+- 設計フェーズで複数ドキュメントを作成した後
+- プロトタイプでコンポーネントを追加した後
+- チャットでの細かい修正対応
+
+### フォーマット
+- 日付見出し（## YYYY-MM-DD）は同日なら再利用
+- 新しい履歴はファイル上部に追記
+- 詳細はセクション10「ドキュメントテンプレート」を参照
+
+---
+
+## 9. 禁止事項
 
 - `any` 型の使用
 - `console.log` の本番コード残留
@@ -312,10 +345,11 @@ export default function RootLayout({ children }) {
 - default export（app/ 配下以外）
 - PRD.md の無断変更（確認必須）
 - テストなしでの複雑なロジック実装
+- **作業履歴の記録漏れ**
 
 ---
 
-## 9. ドキュメントテンプレート
+## 10. ドキュメントテンプレート
 
 ### 競合調査レポートテンプレート
 
@@ -369,7 +403,7 @@ export default function RootLayout({ children }) {
 ```markdown
 ## YYYY-MM-DD
 
-### フェーズ名（要件定義 / 設計 / API設計 / 実装 / デプロイ）
+### フェーズ名（要件定義 / 設計 / API設計 / プロトタイプ / 実装 / デプロイ）
 - **実施内容**: 作業の概要
 - **成果物**:
   - [ファイル名](相対パス)
@@ -380,6 +414,21 @@ export default function RootLayout({ children }) {
 
 ※ 新しい履歴はファイル上部に追記（新しい順）
 ※ 同日の作業は同じ日付見出しの下にまとめる
+※ **各コマンド実行時に必ず作業履歴を残すこと**
+
+### チャット対応履歴テンプレート
+
+コマンド以外のチャットでの要望対応時も履歴を残す：
+
+```markdown
+### その他
+- **実施内容**: ユーザー要望への対応概要
+- **変更ファイル**:
+  - 変更したファイルパス
+```
+
+※ 例: 「環境構築手順の修正」「コマンドの追加」「バグ修正」など
+※ 簡潔でよいが、何を変更したか分かるように記載
 
 ### PRD.md テンプレート
 
@@ -612,7 +661,7 @@ components:
 
 ---
 
-## 10. 参照ドキュメント
+## 11. 参照ドキュメント
 
 - [README](./README.md)
 - [開発フロー](./docs/DEVELOPMENT_FLOW.md)
