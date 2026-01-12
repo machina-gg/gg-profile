@@ -19,39 +19,81 @@ GGprofileは以下の特徴で課題を解決します：
 
 ## Tech Stack
 
+### コア技術
 | カテゴリ | 技術 |
 |----------|------|
-| フレームワーク | Next.js (App Router) |
-| 言語 | TypeScript |
-| スタイリング | Tailwind CSS |
+| フレームワーク | Next.js 16.x (App Router) |
+| 言語 | TypeScript 5.x |
+| スタイリング | Tailwind CSS 4.x |
+| UIコンポーネント | shadcn/ui |
+| フォーム | React Hook Form + Zod |
+
+### データ・ストレージ
+| カテゴリ | 技術 |
+|----------|------|
+| データベース | Supabase (PostgreSQL) |
+| ストレージ | Supabase Storage |
+
+### 画像生成
+| カテゴリ | 技術 |
+|----------|------|
+| OGP画像生成 | @vercel/og |
+| カード画像出力 | html-to-image |
+
+### 開発・運用
+| カテゴリ | 技術 |
+|----------|------|
 | Linter / Formatter | ESLint / Prettier |
-| パッケージ管理 | npm |
+| テスト | Vitest + Playwright |
 | ホスティング | Vercel |
 | CI/CD | GitHub Actions |
+| Analytics | Vercel Analytics |
 
-## What's Included
+## ディレクトリ構成
 
 ```
-├── docs/           # 設計・技術ドキュメント
-├── reports/        # 調査・分析レポート
-├── .github/        # CI/CD 設定
-├── .claude/        # Claude Code カスタムコマンド
-├── CLAUDE.md       # AI向け指示書
-└── README.md       # このファイル
+├── src/
+│   ├── app/                  # ページ（App Router）
+│   │   ├── page.tsx          # トップページ
+│   │   ├── create/           # カード作成ページ
+│   │   ├── preview/          # プレビューページ
+│   │   ├── cards/[id]/       # プロフィールページ
+│   │   └── api/              # APIルート
+│   ├── components/
+│   │   ├── ui/               # shadcn/ui
+│   │   ├── card/             # カード関連
+│   │   ├── form/             # フォーム関連
+│   │   └── layout/           # レイアウト
+│   ├── hooks/                # カスタムフック
+│   ├── lib/                  # ユーティリティ
+│   ├── types/                # 型定義
+│   └── data/                 # 静的データ（ランク、エージェント等）
+├── public/
+│   └── images/               # 画像アセット
+├── docs/                     # ドキュメント
+├── reports/                  # レポート
+└── e2e/                      # E2Eテスト
 ```
-
-※ `src/` はAIが初回実装時に自動生成します
 
 ## Getting Started
 
-1. このテンプレートから新規リポジトリを作成
-2. clone して Claude Code で開く
-3. `docs/INPUT.md` に作りたいものを記載
-4. `/project:requirements` で要件定義
-5. `/project:design` で設計
-6. `/project:api` でAPI設計（必要に応じて）
-7. `/project:implement` で実装スタート
-8. `/project:deploy` でデプロイ
+```bash
+# 依存関係インストール
+npm install
+
+# 開発サーバー起動
+npm run dev
+
+# ビルド
+npm run build
+```
+
+環境変数の設定が必要です。`.env.local` を作成してください：
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
 ## Workflow
 
@@ -98,71 +140,15 @@ Claude Code で以下のスラッシュコマンドが使用可能です：
 
 ## Documentation
 
-| ファイル | 内容 | 作成タイミング |
-|----------|------|---------------|
-| docs/INPUT.md | 要件ヒアリングシート | 最初に記載 |
-| reports/COMPETITIVE_ANALYSIS.md | 競合調査レポート | `/project:requirements` |
-| reports/WORK_LOG.md | 作業履歴 | 各フェーズで自動追記 |
-| docs/PRD.md | 要件定義書 | `/project:requirements` |
-| docs/DESIGN.md | 設計書 | `/project:design` |
-| docs/SCREEN.md | 画面設計 | `/project:design` |
-| docs/COMPONENT.md | コンポーネント設計 | `/project:design` |
-| docs/ERD.md | ER図（DB使用時） | `/project:design` |
-| docs/openapi.yaml | API設計（OpenAPI 3.0） | `/project:api` |
-| GitHub Issues | タスク・進捗管理 | 随時更新 |
-
-### reports/COMPETITIVE_ANALYSIS.md（競合調査レポート）
-- 調査対象（競合サービス一覧）
-- 機能比較表
-- 各競合の強み・弱み
-- 差別化ポイント
-- 参考にすべき点
-
-### reports/WORK_LOG.md（作業履歴）
-- 各フェーズで実施した作業の記録
-- 成果物へのリンク
-- 対応した Issue 番号
-- 変更ファイル一覧
-
-### docs/PRD.md（要件定義書）
-- プロジェクト概要・背景
-- ターゲットユーザー
-- 機能一覧（MVP / 将来）
-- 非機能要件
-
-### docs/DESIGN.md（設計書）
-- 技術スタック
-- ディレクトリ構成
-- 状態管理方針
-- 主要コンポーネント設計
-
-### docs/SCREEN.md（画面設計）
-- 画面一覧
-- 画面遷移図
-- 各画面のワイヤーフレーム・要素
-
-### docs/COMPONENT.md（コンポーネント設計）
-- コンポーネント一覧
-- コンポーネント階層図（Mermaid）
-- 主要コンポーネント詳細（Props, 用途）
-
-### docs/ERD.md（ER図）
-- テーブル一覧
-- ER図（Mermaid）
-- テーブル詳細（カラム定義）
-
-### docs/openapi.yaml（API設計）
-- OpenAPI 3.0 形式
-- エンドポイント定義
-- リクエスト / レスポンススキーマ
-- Swagger UI で確認可能
-
-### GitHub Issues（タスク・進捗管理）
-- タスクの作成・管理
-- 進捗の記録
-- ラベルで分類
-  - 初回: feature
-  - 開発中に追加: bug / refactor / docs
+| ドキュメント | 説明 |
+|-------------|------|
+| [PRD.md](./docs/PRD.md) | 要件定義書 |
+| [DESIGN.md](./docs/DESIGN.md) | 技術設計書 |
+| [SCREEN.md](./docs/SCREEN.md) | 画面設計 |
+| [COMPONENT.md](./docs/COMPONENT.md) | コンポーネント設計 |
+| [ERD.md](./docs/ERD.md) | データベース設計 |
+| [競合調査レポート](./reports/COMPETITIVE_ANALYSIS.md) | 競合サービス分析 |
+| [作業履歴](./reports/WORK_LOG.md) | 開発作業ログ |
 
 ## Prerequisites
 
