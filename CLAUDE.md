@@ -56,6 +56,7 @@
 | `/project:implement` | 実装を行う |
 | `/project:continue` | 進捗確認・作業再開 |
 | `/project:review` | コードレビューと修正 |
+| `/project:deploy` | デプロイを行う |
 
 詳細は `.claude/commands/` 配下の各ファイルを参照。
 
@@ -208,6 +209,37 @@ jobs:
         run: npm run build
 ```
 
+### 4.6 Analytics 設定
+Vercel Analytics をデフォルトで導入：
+
+```bash
+npm install @vercel/analytics
+```
+
+`src/app/layout.tsx` に追加：
+```typescript
+import { Analytics } from '@vercel/analytics/react'
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  )
+}
+```
+
+#### ユーザー設定が必要な項目
+| 項目 | 設定場所 | 説明 |
+|------|----------|------|
+| Vercel Analytics | Vercel ダッシュボード | Project Settings → Analytics → Enable |
+| Google Analytics（任意） | `.env.local` | `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX` |
+
+※ Google Analytics を追加する場合は別途 `@next/third-parties` を使用
+
 ---
 
 ## 5. ディレクトリ構成
@@ -285,6 +317,70 @@ jobs:
 
 ## 9. ドキュメントテンプレート
 
+### 競合調査レポートテンプレート
+
+```markdown
+# 競合調査レポート
+
+## 1. 調査概要
+- 調査日: YYYY-MM-DD
+- 対象市場:
+
+## 2. 競合サービス一覧
+
+| サービス名 | URL | 概要 |
+|------------|-----|------|
+| サービスA | https://example.com | xxx |
+| サービスB | https://example.com | xxx |
+
+## 3. 機能比較
+
+| 機能 | 自プロダクト | 競合A | 競合B | 競合C |
+|------|--------------|-------|-------|-------|
+| 機能1 | ○ | ○ | × | ○ |
+| 機能2 | ○ | × | ○ | × |
+
+## 4. 競合分析
+
+### サービスA
+- **強み**:
+- **弱み**:
+- **参考にすべき点**:
+
+### サービスB
+- **強み**:
+- **弱み**:
+- **参考にすべき点**:
+
+## 5. 差別化ポイント
+<!-- 自プロダクトの優位性・差別化要素 -->
+
+## 6. 市場機会
+<!-- 競合が対応できていない領域、ニーズ -->
+
+## 7. リスク・脅威
+<!-- 競合の動向で注意すべき点 -->
+```
+
+### 作業履歴テンプレート
+
+各フェーズ完了時に reports/WORK_LOG.md へ追記する形式：
+
+```markdown
+## YYYY-MM-DD
+
+### フェーズ名（要件定義 / 設計 / API設計 / 実装 / デプロイ）
+- **実施内容**: 作業の概要
+- **成果物**:
+  - [ファイル名](相対パス)
+- **対応Issue**: #1, #2（実装時）
+- **変更ファイル**:（実装時）
+  - src/xxx/xxx.tsx
+```
+
+※ 新しい履歴はファイル上部に追記（新しい順）
+※ 同日の作業は同じ日付見出しの下にまとめる
+
 ### PRD.md テンプレート
 
 ```markdown
@@ -311,6 +407,10 @@ jobs:
 ## 5. 非機能要件
 - 対応ブラウザ: Chrome, Safari, Edge 最新版
 - レスポンシブ: 対応
+
+## 6. マネタイズ（該当する場合）
+<!-- 収益化モデル: 広告 / サブスク / 買い切り / フリーミアム / なし -->
+<!-- 課金機能が必要な場合は決済手段も記載 -->
 ```
 
 ### DESIGN.md テンプレート

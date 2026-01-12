@@ -5,7 +5,7 @@
 ```mermaid
 flowchart TB
     subgraph phase1 [1. 要件定義]
-        A1["requirements"] --> A2["ヒアリング"] --> A3["PRD.md 作成"]
+        A1["requirements"] --> A2["競合調査"] --> A3["PRD.md 作成"]
     end
 
     subgraph phase2 [2. 設計]
@@ -31,20 +31,26 @@ flowchart TB
         E1["continue"] --> E2["Open Issue 確認"] --> E3["次のタスク実装"]
     end
 
+    subgraph phase6 [6. デプロイ]
+        F1["deploy"] --> F2["ビルド確認"] --> F3["Vercel デプロイ"]
+        F3 --> F4["Analytics 有効化"]
+    end
+
     A3 --> B1
     B6 -->|Yes| C1
     B6 -->|No| D1
     C3 --> D1
     D6 --> E1
     E3 --> D5
+    E2 -->|全Issue完了| F1
 ```
 
 ## フェーズ詳細
 
 ### 1. 要件定義
 - **コマンド**: `/project:requirements`
-- **処理内容**: ヒアリング → 要件整理
-- **成果物**: docs/PRD.md
+- **処理内容**: INPUT.md 確認 → 競合調査 → PRD 作成
+- **成果物**: reports/COMPETITIVE_ANALYSIS.md, docs/PRD.md
 
 ### 2. 設計
 - **コマンド**: `/project:design`
@@ -72,6 +78,17 @@ flowchart TB
 ### 5. 繰り返し
 - **コマンド**: `/project:continue`
 - **処理内容**: Open な Issue 確認 → 次のタスク実装
+
+### 6. デプロイ
+- **コマンド**: `/project:deploy`
+- **処理内容**:
+  - ビルド確認（npm run build）
+  - 環境変数設定
+  - Vercel へデプロイ（Vercel MCP 使用）
+  - Analytics 有効化案内
+  - 動作確認
+- **成果物**: 本番環境 URL
+- **前提条件**: Vercel MCP が設定されていること
 
 ## その他のコマンド
 
