@@ -25,3 +25,10 @@ description: 実装を行う
    - npm run test（Vitest で単体テスト）
 
 7. 完了したら Issue を更新・クローズ
+
+8. reports/WORK_LOG.md に作業履歴を追記
+   - 日付（## YYYY-MM-DD 形式）※同日の場合は日付見出しを再利用
+   - フェーズ名（### 実装）
+   - 対応した Issue 番号とタイトル
+   - 実施内容の概要
+   - 主な変更ファイル一覧
