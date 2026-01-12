@@ -16,7 +16,8 @@
 ### データ・ストレージ
 | カテゴリ | 技術 | 用途 |
 |----------|------|------|
-| データベース | Supabase (PostgreSQL) | カードデータ保存 |
+| データベース | Supabase (PostgreSQL) | カード・ユーザーデータ保存 |
+| 認証 | Supabase Auth | Discord / Google ログイン |
 | ストレージ | Supabase Storage | プロフィール画像保存 |
 
 ### 画像生成
@@ -43,23 +44,35 @@
 │   ├── app/
 │   │   ├── page.tsx                    # トップページ
 │   │   ├── layout.tsx                  # ルートレイアウト
+│   │   ├── login/
+│   │   │   └── page.tsx                # ログインページ
 │   │   ├── create/
-│   │   │   └── page.tsx                # カード作成ページ
+│   │   │   └── page.tsx                # カード作成ページ（要認証）
 │   │   ├── preview/
 │   │   │   └── page.tsx                # プレビュー・ダウンロードページ
+│   │   ├── mypage/
+│   │   │   └── page.tsx                # マイページ（カード一覧）
 │   │   ├── cards/
 │   │   │   └── [id]/
 │   │   │       ├── page.tsx            # プロフィールページ
 │   │   │       └── opengraph-image.tsx # 動的OGP画像
-│   │   └── api/
-│   │       └── cards/
-│   │           └── route.ts            # カード保存API
+│   │   ├── api/
+│   │   │   └── cards/
+│   │   │       └── route.ts            # カード保存API
+│   │   └── auth/
+│   │       └── callback/
+│   │           └── route.ts            # OAuth コールバック
 │   ├── components/
 │   │   ├── ui/                         # shadcn/ui コンポーネント
+│   │   ├── auth/                       # 認証関連
+│   │   │   ├── LoginButton/
+│   │   │   ├── LogoutButton/
+│   │   │   └── AuthGuard/
 │   │   ├── card/                       # カード関連
 │   │   │   ├── CardPreview/
 │   │   │   ├── CardForm/
-│   │   │   └── CardShare/
+│   │   │   ├── CardShare/
+│   │   │   └── CardList/
 │   │   ├── form/                       # フォーム関連
 │   │   │   ├── GameSelector/
 │   │   │   ├── RankSelector/
