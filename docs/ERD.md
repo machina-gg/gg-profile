@@ -2,34 +2,29 @@
 
 ## 1. テーブル一覧
 
-### MVP
 | テーブル名 | 説明 |
 |-----------|------|
-| users | ユーザー情報（Supabase Auth連携） |
+| users | ユーザー情報（Supabase Auth連携、ログイン時に自動作成） |
 | cards | プロフィールカード情報 |
 
-※ cardsテーブルにuser_idを持たせ、ユーザーとカードを1:N で紐付け
-
 ## 2. ER図
-
-### MVP
 
 ```mermaid
 erDiagram
     users ||--o{ cards : "has many"
 
     users {
-        uuid id PK "主キー（Supabase Auth user.id）"
+        uuid id PK "Supabase Auth user.id"
         string email "メールアドレス"
-        string display_name "表示名"
-        string avatar_url "アバター画像URL"
+        string display_name "表示名（プロバイダーから取得）"
+        string avatar_url "アバター画像URL（プロバイダーから取得）"
         string provider "認証プロバイダー（discord/google）"
         timestamp created_at "作成日時"
         timestamp updated_at "更新日時"
     }
 
     cards {
-        uuid id PK "主キー"
+        uuid id PK "主キー（シェアURLに使用）"
         uuid user_id FK "ユーザーID"
         string game "ゲーム種別"
         string player_name "ゲーム内ネーム"
@@ -37,7 +32,7 @@ erDiagram
         string[] agents "メインエージェント（配列）"
         string play_style "プレイスタイル"
         string bio "ひとこと自己紹介"
-        string x_id "X（Twitter）ID"
+        string x_id "X ID"
         string discord_id "Discord ID"
         string profile_image_url "プロフィール画像URL"
         string background "背景種別"
@@ -51,14 +46,14 @@ erDiagram
 
 ### users
 
-ユーザー情報を保存するテーブル。Supabase Authと連携。
+ユーザー情報を保存するテーブル。**Discord/Googleログイン時にトリガーで自動作成される。**
 
 | カラム | 型 | NULL | デフォルト | 説明 |
 |--------|-----|------|-----------|------|
-| id | uuid | NO | - | 主キー（Supabase Auth user.id） |
+| id | uuid | NO | - | Supabase Auth user.id |
 | email | varchar(255) | NO | - | メールアドレス |
-| display_name | varchar(50) | YES | NULL | 表示名 |
-| avatar_url | text | YES | NULL | アバター画像URL |
+| display_name | varchar(50) | YES | NULL | 表示名（プロバイダーから自動取得） |
+| avatar_url | text | YES | NULL | アバター画像URL（プロバイダーから自動取得） |
 | provider | varchar(20) | NO | - | 認証プロバイダー（discord/google） |
 | created_at | timestamptz | NO | now() | 作成日時 |
 | updated_at | timestamptz | NO | now() | 更新日時 |
@@ -85,7 +80,7 @@ erDiagram
 | agents | text[] | NO | - | メインエージェント（配列） |
 | play_style | varchar(50) | NO | - | プレイスタイル |
 | bio | varchar(100) | YES | NULL | ひとこと自己紹介 |
-| x_id | varchar(50) | YES | NULL | X（Twitter）ID |
+| x_id | varchar(50) | YES | NULL | X ID |
 | discord_id | varchar(50) | YES | NULL | Discord ID |
 | profile_image_url | text | YES | NULL | プロフィール画像URL |
 | background | varchar(50) | NO | 'default' | 背景種別 |
@@ -109,10 +104,10 @@ erDiagram
 
 ## 4. Supabase マイグレーション
 
-### MVP用 SQL
-
 ```sql
--- users テーブル作成
+-- ===========================================
+-- users テーブル
+-- ===========================================
 CREATE TABLE users (
   id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email varchar(255) NOT NULL UNIQUE,
@@ -123,7 +118,9 @@ CREATE TABLE users (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
--- cards テーブル作成
+-- ===========================================
+-- cards テーブル
+-- ===========================================
 CREATE TABLE cards (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -142,41 +139,38 @@ CREATE TABLE cards (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
--- インデックス作成
 CREATE INDEX cards_user_id_idx ON cards(user_id);
 CREATE INDEX cards_created_at_idx ON cards(created_at DESC);
 
--- RLS（Row Level Security）有効化
+-- ===========================================
+-- RLS（Row Level Security）
+-- ===========================================
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cards ENABLE ROW LEVEL SECURITY;
 
--- users ポリシー
+-- users: 自分のプロフィールのみ参照・更新可能
 CREATE POLICY "Users can view own profile"
-  ON users FOR SELECT
-  USING (auth.uid() = id);
+  ON users FOR SELECT USING (auth.uid() = id);
 
 CREATE POLICY "Users can update own profile"
-  ON users FOR UPDATE
-  USING (auth.uid() = id);
+  ON users FOR UPDATE USING (auth.uid() = id);
 
--- cards ポリシー
+-- cards: 全員が参照可能、自分のカードのみ作成・更新・削除可能
 CREATE POLICY "Cards are viewable by everyone"
-  ON cards FOR SELECT
-  USING (true);
+  ON cards FOR SELECT USING (true);
 
 CREATE POLICY "Users can create own cards"
-  ON cards FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
+  ON cards FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 CREATE POLICY "Users can update own cards"
-  ON cards FOR UPDATE
-  USING (auth.uid() = user_id);
+  ON cards FOR UPDATE USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can delete own cards"
-  ON cards FOR DELETE
-  USING (auth.uid() = user_id);
+  ON cards FOR DELETE USING (auth.uid() = user_id);
 
--- updated_at 自動更新トリガー
+-- ===========================================
+-- トリガー: updated_at 自動更新
+-- ===========================================
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -187,15 +181,15 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER users_updated_at
   BEFORE UPDATE ON users
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at();
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 CREATE TRIGGER cards_updated_at
   BEFORE UPDATE ON cards
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at();
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
--- 新規ユーザー作成時に users テーブルに自動挿入
+-- ===========================================
+-- トリガー: ログイン時にusersテーブルへ自動登録
+-- ===========================================
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -213,9 +207,10 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
-  FOR EACH ROW
-  EXECUTE FUNCTION handle_new_user();
+  FOR EACH ROW EXECUTE FUNCTION handle_new_user();
 ```
+
+---
 
 ## 5. Storage バケット
 
@@ -226,19 +221,54 @@ CREATE TRIGGER on_auth_user_created
 | 設定 | 値 |
 |------|-----|
 | バケット名 | profile-images |
-| 公開設定 | Public |
+| 公開設定 | Public（読み取りのみ） |
 | ファイルサイズ上限 | 5MB |
 | 許可形式 | image/jpeg, image/png, image/webp |
 
-#### ポリシー
 ```sql
--- 誰でもアップロード可能
-CREATE POLICY "Anyone can upload profile images"
+-- 認証ユーザーのみアップロード可能
+CREATE POLICY "Authenticated users can upload"
   ON storage.objects FOR INSERT
-  WITH CHECK (bucket_id = 'profile-images');
+  WITH CHECK (
+    bucket_id = 'profile-images'
+    AND auth.role() = 'authenticated'
+  );
 
 -- 誰でも閲覧可能
-CREATE POLICY "Profile images are publicly accessible"
+CREATE POLICY "Public read access"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'profile-images');
+
+-- 自分がアップロードしたファイルのみ削除可能
+CREATE POLICY "Users can delete own files"
+  ON storage.objects FOR DELETE
+  USING (
+    bucket_id = 'profile-images'
+    AND auth.uid()::text = (storage.foldername(name))[1]
+  );
+```
+
+---
+
+## 6. 認証フロー
+
+```mermaid
+sequenceDiagram
+    participant U as ユーザー
+    participant A as アプリ
+    participant S as Supabase Auth
+    participant D as Discord/Google
+    participant DB as Database
+
+    U->>A: ログインボタン押下
+    A->>S: signInWithOAuth()
+    S->>D: OAuth認証リクエスト
+    D->>U: 認可画面表示
+    U->>D: 許可
+    D->>S: 認証トークン
+    S->>DB: auth.users に挿入
+    DB->>DB: on_auth_user_created トリガー発火
+    DB->>DB: users テーブルに自動挿入
+    S->>A: セッション返却
+    A->>U: ログイン完了、カード作成へ
 ```
