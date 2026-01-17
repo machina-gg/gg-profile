@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -129,12 +129,12 @@
    ================================ */
 :root {
   /* Pastel Colors */
-  --kawaii-purple: #A78BFA;
-  --kawaii-pink: #F472B6;
-  --kawaii-cyan: #67E8F9;
-  --kawaii-yellow: #FDE68A;
-  --kawaii-green: #6EE7B7;
-  --kawaii-peach: #FBBF24;
+  --kawaii-purple: #a78bfa;
+  --kawaii-pink: #f472b6;
+  --kawaii-cyan: #67e8f9;
+  --kawaii-yellow: #fde68a;
+  --kawaii-green: #6ee7b7;
+  --kawaii-peach: #fbbf24;
 
   /* Background Colors */
   --kawaii-bg-dark: #1a1a2e;
@@ -142,8 +142,8 @@
   --kawaii-bg-card: #2a2a4a;
 
   /* Text Colors */
-  --kawaii-text: #E2E8F0;
-  --kawaii-text-muted: #94A3B8;
+  --kawaii-text: #e2e8f0;
+  --kawaii-text-muted: #94a3b8;
 }
 
 /* ================================
@@ -152,7 +152,8 @@
 
 /* Float Animation */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -162,7 +163,8 @@
 
 /* Gentle Float with rotation */
 @keyframes float-rotate {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(-3deg);
   }
   50% {
@@ -172,7 +174,8 @@
 
 /* Sparkle Animation */
 @keyframes sparkle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -184,7 +187,8 @@
 
 /* Twinkle Animation */
 @keyframes twinkle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.3;
     transform: scale(0.8);
   }
@@ -196,7 +200,8 @@
 
 /* Pulse Soft */
 @keyframes pulse-soft {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -208,7 +213,8 @@
 
 /* Pulse Slow - for background glow orbs */
 @keyframes pulse-slow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.1;
     transform: scale(1);
   }
@@ -224,7 +230,8 @@
 
 /* Wiggle */
 @keyframes wiggle {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(-3deg);
   }
   50% {
@@ -331,7 +338,11 @@
 
 /* Kawaii Card */
 .kawaii-card {
-  background: linear-gradient(180deg, rgba(42, 42, 74, 0.8), rgba(26, 26, 46, 0.9));
+  background: linear-gradient(
+    180deg,
+    rgba(42, 42, 74, 0.8),
+    rgba(26, 26, 46, 0.9)
+  );
   border: 1px solid rgba(167, 139, 250, 0.2);
   border-radius: 1.5rem;
   backdrop-filter: blur(10px);
@@ -346,23 +357,31 @@
 
 /* Glow Text */
 .glow-text-purple {
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5),
-               0 0 20px rgba(167, 139, 250, 0.3);
+  text-shadow:
+    0 0 10px rgba(167, 139, 250, 0.5),
+    0 0 20px rgba(167, 139, 250, 0.3);
 }
 
 .glow-text-pink {
-  text-shadow: 0 0 10px rgba(244, 114, 182, 0.5),
-               0 0 20px rgba(244, 114, 182, 0.3);
+  text-shadow:
+    0 0 10px rgba(244, 114, 182, 0.5),
+    0 0 20px rgba(244, 114, 182, 0.3);
 }
 
 .glow-text-cyan {
-  text-shadow: 0 0 10px rgba(103, 232, 249, 0.5),
-               0 0 20px rgba(103, 232, 249, 0.3);
+  text-shadow:
+    0 0 10px rgba(103, 232, 249, 0.5),
+    0 0 20px rgba(103, 232, 249, 0.3);
 }
 
 /* Gradient Text */
 .gradient-text-kawaii {
-  background: linear-gradient(135deg, var(--kawaii-purple), var(--kawaii-pink), var(--kawaii-cyan));
+  background: linear-gradient(
+    135deg,
+    var(--kawaii-purple),
+    var(--kawaii-pink),
+    var(--kawaii-cyan)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -371,7 +390,7 @@
 /* Star decoration */
 .star-decoration::before,
 .star-decoration::after {
-  content: "★";
+  content: '★';
   position: absolute;
   color: var(--kawaii-yellow);
   font-size: 1rem;
@@ -391,13 +410,13 @@
 
 /* Noise overlay */
 .noise-overlay::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("/assets/patterns/noise-texture.png");
+  background-image: url('/assets/patterns/noise-texture.png');
   opacity: 0.03;
   pointer-events: none;
   z-index: 1;

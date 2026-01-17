@@ -58,55 +58,139 @@ export function SampleSection() {
         <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-[#F472B6] rounded-full blur-[200px] opacity-5" />
 
         {/* Sparkles - scattered throughout */}
-        <Image src="/assets/decorations/sparkle-1.svg" alt="" width={32} height={32}
-          className="absolute top-16 left-[12%] opacity-45 animate-sparkle" />
-        <Image src="/assets/decorations/sparkle-2.svg" alt="" width={28} height={28}
-          className="absolute top-20 right-[15%] opacity-40 animate-sparkle" style={{ animationDelay: '0.6s' }} />
-        <Image src="/assets/decorations/sparkle-1.svg" alt="" width={24} height={24}
-          className="absolute top-[35%] left-[5%] opacity-35 animate-sparkle" style={{ animationDelay: '1.2s' }} />
-        <Image src="/assets/decorations/sparkle-2.svg" alt="" width={30} height={30}
-          className="absolute top-[25%] right-[8%] opacity-40 animate-sparkle" style={{ animationDelay: '0.3s' }} />
+        <Image
+          src="/assets/decorations/sparkle-1.svg"
+          alt=""
+          width={32}
+          height={32}
+          className="absolute top-16 left-[12%] opacity-45 animate-sparkle"
+        />
+        <Image
+          src="/assets/decorations/sparkle-2.svg"
+          alt=""
+          width={28}
+          height={28}
+          className="absolute top-20 right-[15%] opacity-40 animate-sparkle"
+          style={{ animationDelay: '0.6s' }}
+        />
+        <Image
+          src="/assets/decorations/sparkle-1.svg"
+          alt=""
+          width={24}
+          height={24}
+          className="absolute top-[35%] left-[5%] opacity-35 animate-sparkle"
+          style={{ animationDelay: '1.2s' }}
+        />
+        <Image
+          src="/assets/decorations/sparkle-2.svg"
+          alt=""
+          width={30}
+          height={30}
+          className="absolute top-[25%] right-[8%] opacity-40 animate-sparkle"
+          style={{ animationDelay: '0.3s' }}
+        />
 
         {/* Stars */}
-        <Image src="/assets/decorations/star-1.svg" alt="" width={20} height={20}
-          className="absolute top-24 left-[30%] opacity-35 animate-twinkle" />
-        <Image src="/assets/decorations/star-2.svg" alt="" width={18} height={18}
-          className="absolute top-[30%] right-[25%] opacity-30 animate-twinkle" style={{ animationDelay: '0.8s' }} />
-        <Image src="/assets/decorations/star-1.svg" alt="" width={22} height={22}
-          className="absolute bottom-32 left-[18%] opacity-35 animate-twinkle" style={{ animationDelay: '1.5s' }} />
-        <Image src="/assets/decorations/star-2.svg" alt="" width={16} height={16}
-          className="absolute bottom-24 right-[20%] opacity-30 animate-twinkle" style={{ animationDelay: '0.4s' }} />
+        <Image
+          src="/assets/decorations/star-1.svg"
+          alt=""
+          width={20}
+          height={20}
+          className="absolute top-24 left-[30%] opacity-35 animate-twinkle"
+        />
+        <Image
+          src="/assets/decorations/star-2.svg"
+          alt=""
+          width={18}
+          height={18}
+          className="absolute top-[30%] right-[25%] opacity-30 animate-twinkle"
+          style={{ animationDelay: '0.8s' }}
+        />
+        <Image
+          src="/assets/decorations/star-1.svg"
+          alt=""
+          width={22}
+          height={22}
+          className="absolute bottom-32 left-[18%] opacity-35 animate-twinkle"
+          style={{ animationDelay: '1.5s' }}
+        />
+        <Image
+          src="/assets/decorations/star-2.svg"
+          alt=""
+          width={16}
+          height={16}
+          className="absolute bottom-24 right-[20%] opacity-30 animate-twinkle"
+          style={{ animationDelay: '0.4s' }}
+        />
 
         {/* Hearts */}
-        <Image src="/assets/decorations/heart.svg" alt="" width={22} height={22}
-          className="absolute top-[40%] left-[8%] opacity-30 animate-float-slow" />
-        <Image src="/assets/decorations/heart.svg" alt="" width={18} height={18}
-          className="absolute top-[50%] right-[10%] opacity-25 animate-float" style={{ animationDelay: '-1.5s' }} />
+        <Image
+          src="/assets/decorations/heart.svg"
+          alt=""
+          width={22}
+          height={22}
+          className="absolute top-[40%] left-[8%] opacity-30 animate-float-slow"
+        />
+        <Image
+          src="/assets/decorations/heart.svg"
+          alt=""
+          width={18}
+          height={18}
+          className="absolute top-[50%] right-[10%] opacity-25 animate-float"
+          style={{ animationDelay: '-1.5s' }}
+        />
 
         {/* Bottom area sparkles */}
-        <Image src="/assets/decorations/sparkle-1.svg" alt="" width={26} height={26}
-          className="absolute bottom-[30%] left-[25%] opacity-35 animate-sparkle" style={{ animationDelay: '0.9s' }} />
-        <Image src="/assets/decorations/sparkle-2.svg" alt="" width={22} height={22}
-          className="absolute bottom-[35%] right-[30%] opacity-30 animate-sparkle" style={{ animationDelay: '1.8s' }} />
+        <Image
+          src="/assets/decorations/sparkle-1.svg"
+          alt=""
+          width={26}
+          height={26}
+          className="absolute bottom-[30%] left-[25%] opacity-35 animate-sparkle"
+          style={{ animationDelay: '0.9s' }}
+        />
+        <Image
+          src="/assets/decorations/sparkle-2.svg"
+          alt=""
+          width={22}
+          height={22}
+          className="absolute bottom-[35%] right-[30%] opacity-30 animate-sparkle"
+          style={{ animationDelay: '1.8s' }}
+        />
       </div>
 
       <div className="container relative mx-auto px-4">
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
-            <Image src="/assets/decorations/heart.svg" alt="" width={16} height={16} className="opacity-60 animate-float-slow" />
+            <Image
+              src="/assets/decorations/heart.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="opacity-60 animate-float-slow"
+            />
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#F472B6]" />
-            <span className="text-sm tracking-[0.2em] text-[#F472B6] font-medium uppercase">Samples</span>
+            <span className="text-sm tracking-[0.2em] text-[#F472B6] font-medium uppercase">
+              Samples
+            </span>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-[#F472B6]" />
-            <Image src="/assets/decorations/heart.svg" alt="" width={16} height={16} className="opacity-60 animate-float-slow" style={{ animationDelay: '-0.5s' }} />
+            <Image
+              src="/assets/decorations/heart.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="opacity-60 animate-float-slow"
+              style={{ animationDelay: '-0.5s' }}
+            />
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
             <span className="text-white">こんなカードが</span>
-            <span className="bg-gradient-to-r from-[#A78BFA] via-[#F472B6] to-[#67E8F9] bg-clip-text text-transparent">作れるよ!</span>
+            <span className="bg-gradient-to-r from-[#A78BFA] via-[#F472B6] to-[#67E8F9] bg-clip-text text-transparent">
+              作れるよ!
+            </span>
           </h2>
-          <p className="text-gray-500 text-lg">
-            実際に作れるカードのサンプル
-          </p>
+          <p className="text-gray-500 text-lg">実際に作れるカードのサンプル</p>
         </div>
 
         {/* Cards Display */}
@@ -117,7 +201,7 @@ export function SampleSection() {
               className="relative group"
               style={{
                 animation: `float ${3 + index * 0.5}s ease-in-out infinite`,
-                animationDelay: `${index * 0.3}s`
+                animationDelay: `${index * 0.3}s`,
               }}
             >
               {/* Glow Effect */}

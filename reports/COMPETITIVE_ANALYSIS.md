@@ -1,42 +1,44 @@
 # 競合調査レポート
 
 ## 1. 調査概要
+
 - 調査日: 2026-01-12
 - 対象市場: ゲーマー向けプロフィールカード作成・共有サービス
 
 ## 2. 競合サービス一覧
 
-| サービス名 | URL | 概要 |
-|------------|-----|------|
-| Gamee（ゲーミー） | https://gamee.games | ゲーム友達募集アプリ。自己紹介カード作成機能付き |
-| AppMedia VALORANT自己紹介カード | https://appmedia.jp/valorant/75753403 | VALORANT特化の自己紹介カード作成ツール |
-| ValoCards | https://github.com/tiqdev/valocards | VALORANT APIを活用したカード作成ツール |
-| Yossy VALORANT Profile Card Generator | https://yossy-tools.bitbucket.io/vpcg.html | VALORANTプロフィールカード生成ツール |
-| Tracker.gg | https://tracker.gg | ゲーム戦績トラッキングサイト（プロフィール表示機能あり） |
-| Exophase Gamercards | https://gamercards.exophase.com | PSN/Xbox/Steam対応のゲーマーカード作成 |
-| プロフメーカー | https://prfmaker.com | 汎用自己紹介カード作成サイト |
-| GameWith 自己紹介カードメーカー | https://gamewith.jp | ゲーム別の自己紹介カード作成（モンハン、ポケポケ等） |
+| サービス名                            | URL                                        | 概要                                                     |
+| ------------------------------------- | ------------------------------------------ | -------------------------------------------------------- |
+| Gamee（ゲーミー）                     | https://gamee.games                        | ゲーム友達募集アプリ。自己紹介カード作成機能付き         |
+| AppMedia VALORANT自己紹介カード       | https://appmedia.jp/valorant/75753403      | VALORANT特化の自己紹介カード作成ツール                   |
+| ValoCards                             | https://github.com/tiqdev/valocards        | VALORANT APIを活用したカード作成ツール                   |
+| Yossy VALORANT Profile Card Generator | https://yossy-tools.bitbucket.io/vpcg.html | VALORANTプロフィールカード生成ツール                     |
+| Tracker.gg                            | https://tracker.gg                         | ゲーム戦績トラッキングサイト（プロフィール表示機能あり） |
+| Exophase Gamercards                   | https://gamercards.exophase.com            | PSN/Xbox/Steam対応のゲーマーカード作成                   |
+| プロフメーカー                        | https://prfmaker.com                       | 汎用自己紹介カード作成サイト                             |
+| GameWith 自己紹介カードメーカー       | https://gamewith.jp                        | ゲーム別の自己紹介カード作成（モンハン、ポケポケ等）     |
 
 ## 3. 機能比較
 
-| 機能 | GGprofile（計画） | Gamee | AppMedia | ValoCards | Tracker.gg |
-|------|------------------|-------|----------|-----------|------------|
-| カード作成 | ○ | ○ | ○ | ○ | △ |
-| PNG画像ダウンロード | ○ | ○ | ○ | ○ | × |
-| シェアURL発行 | ○ | × | × | × | ○ |
-| 詳細プロフィールページ | ○ | △ | × | × | ○ |
-| SNSシェア機能 | ○ | ○ | ○ | ○ | ○ |
-| 複数ゲーム対応 | ○（段階的） | ○ | × | × | ○ |
-| OGP対応 | ○ | × | × | × | ○ |
-| API連携（戦績自動取得） | ○（将来） | × | × | ○ | ○ |
-| カスタム背景/画像 | ○ | △ | △ | △ | × |
-| アカウント不要 | ○ | × | ○ | ○ | △ |
-| 日本語対応 | ○ | ○ | ○ | △ | △ |
-| モバイル最適化 | ○ | ○ | △ | △ | △ |
+| 機能                    | GGprofile（計画） | Gamee | AppMedia | ValoCards | Tracker.gg |
+| ----------------------- | ----------------- | ----- | -------- | --------- | ---------- |
+| カード作成              | ○                 | ○     | ○        | ○         | △          |
+| PNG画像ダウンロード     | ○                 | ○     | ○        | ○         | ×          |
+| シェアURL発行           | ○                 | ×     | ×        | ×         | ○          |
+| 詳細プロフィールページ  | ○                 | △     | ×        | ×         | ○          |
+| SNSシェア機能           | ○                 | ○     | ○        | ○         | ○          |
+| 複数ゲーム対応          | ○（段階的）       | ○     | ×        | ×         | ○          |
+| OGP対応                 | ○                 | ×     | ×        | ×         | ○          |
+| API連携（戦績自動取得） | ○（将来）         | ×     | ×        | ○         | ○          |
+| カスタム背景/画像       | ○                 | △     | △        | △         | ×          |
+| アカウント不要          | ○                 | ×     | ○        | ○         | △          |
+| 日本語対応              | ○                 | ○     | ○        | △         | △          |
+| モバイル最適化          | ○                 | ○     | △        | △         | △          |
 
 ## 4. 競合分析
 
 ### Gamee（ゲーミー）
+
 - **強み**:
   - 2136種類以上のゲームに対応
   - ゲーム友達募集機能との連携
@@ -53,6 +55,7 @@
   - シンプルで使いやすいUI
 
 ### AppMedia VALORANT自己紹介カード
+
 - **強み**:
   - VALORANT特化で項目が充実
   - アカウント登録不要で即利用可能
@@ -67,6 +70,7 @@
   - シンプルな操作フロー
 
 ### ValoCards
+
 - **強み**:
   - VALORANT APIと連携し、実際のランク・タイトルを反映
   - 縦・横両方のカード形式に対応
@@ -80,6 +84,7 @@
   - 複数フォーマット対応
 
 ### Tracker.gg
+
 - **強み**:
   - 公式APIを使用した正確な戦績データ
   - 複数ゲーム対応（Apex、CSGO、Valorant等）
@@ -95,6 +100,7 @@
   - 開発者向けAPIの提供モデル
 
 ### Exophase Gamercards
+
 - **強み**:
   - PSN/Xbox/Steam等マルチプラットフォーム対応
   - 自動更新機能
