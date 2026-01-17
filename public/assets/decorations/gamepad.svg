@@ -1,0 +1,14 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gamepad-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 40 C24 20 44 20 54 30 L64 40 L74 30 C84 20 104 20 104 40 C104 55 100 90 84 100 C74 106 64 90 64 90 C64 90 54 106 44 100 C28 90 24 55 24 40 Z" fill="url(#gamepad-grad)" opacity="0.9"/>
+  <circle cx="44" cy="50" r="4" fill="#1a1a2e"/>
+  <circle cx="84" cy="50" r="2" fill="#1a1a2e"/>
+  <circle cx="90" cy="44" r="2" fill="#1a1a2e"/>
+  <circle cx="78" cy="44" r="2" fill="#1a1a2e"/>
+  <circle cx="84" cy="38" r="2" fill="#1a1a2e"/>
+</svg>

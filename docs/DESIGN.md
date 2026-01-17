@@ -56,9 +56,9 @@
 │   │   │   └── [id]/
 │   │   │       ├── page.tsx            # プロフィールページ
 │   │   │       └── opengraph-image.tsx # 動的OGP画像
-│   │   ├── api/
-│   │   │   └── cards/
-│   │   │       └── route.ts            # カード保存API
+│   │   ├── actions/
+│   │   │   ├── card.ts                 # カード関連Server Actions
+│   │   │   └── image.ts                # 画像アップロードServer Actions
 │   │   └── auth/
 │   │       └── callback/
 │   │           └── route.ts            # OAuth コールバック
@@ -132,13 +132,76 @@ MVPではグローバル状態管理ライブラリは使用しない。必要�
                                               プレビュー表示 / OGP生成
 ```
 
-## 4. 主要機能の実装方針
+## 4. API方針
+
+### Server Actions を採用
+
+本プロジェクトでは、Route Handlers（REST API）ではなく **Server Actions** を採用する。
+
+#### 採用理由
+
+| 観点 | 説明 |
+|------|------|
+| シンプルさ | API エンドポイントの定義不要。関数を直接呼び出すだけで完結 |
+| 型安全性 | クライアント〜サーバー間で TypeScript の型がそのまま共有される |
+| ボイラープレート削減 | fetch、レスポンス処理、エラーハンドリングのコードが不要 |
+| Next.js 推奨 | App Router での推奨パターン。フレームワークの最適化を享受できる |
+| 外部公開不要 | 本サービスは外部向け API を提供しないため、REST API の必要性がない |
+
+#### Server Actions の配置
+
+```
+src/app/actions/
+├── card.ts      # カードの作成・更新・削除
+└── image.ts     # 画像アップロード
+```
+
+#### 使用例
+
+```typescript
+// src/app/actions/card.ts
+'use server'
+
+import { z } from 'zod'
+
+const CardSchema = z.object({
+  playerName: z.string().min(1).max(20),
+  // ...
+})
+
+export async function createCard(formData: FormData) {
+  const validated = CardSchema.safeParse(Object.fromEntries(formData))
+  if (!validated.success) {
+    return { error: validated.error.flatten() }
+  }
+  // Supabase に保存
+  // ...
+  return { success: true, cardId: '...' }
+}
+```
+
+```typescript
+// コンポーネントでの呼び出し
+import { createCard } from '@/app/actions/card'
+
+<form action={createCard}>
+  {/* フォームフィールド */}
+</form>
+```
+
+#### 例外: Route Handlers を使うケース
+
+以下は引き続き Route Handlers で実装する:
+
+- **OAuth コールバック** (`/auth/callback/route.ts`): 外部サービスからのリダイレクト受け取り
+
+## 5. 主要機能の実装方針
 
 ### カード作成フロー
 1. ゲーム選択 → フォーム表示
 2. フォーム入力（React Hook Form + Zod）
 3. リアルタイムプレビュー表示
-4. 「カード作成」ボタンでSupabaseに保存
+4. 「カード作成」ボタンで Server Action 経由で Supabase に保存
 5. 固有ID発行 → プレビューページへ遷移
 
 ### 動的OGP生成
@@ -161,7 +224,7 @@ MVPではグローバル状態管理ライブラリは使用しない。必要�
 - `https://twitter.com/intent/tweet?text={text}&url={url}`
 - テキストはカード情報から自動生成
 
-## 5. 外部連携
+## 6. 外部連携
 
 ### Supabase
 | 用途 | 機能 |
@@ -177,7 +240,7 @@ MVPではグローバル状態管理ライブラリは使用しない。必要�
 | Edge Functions | OGP画像生成 |
 | Analytics | アクセス解析 |
 
-## 6. セキュリティ考慮事項
+## 7. セキュリティ考慮事項
 
 ### 画像アップロード
 - ファイルサイズ上限: 5MB
@@ -193,7 +256,7 @@ MVPではグローバル状態管理ライブラリは使用しない。必要�
 - Rate Limiting（Vercel Edge Middleware）
 - CORS設定
 
-## 7. パフォーマンス考慮事項
+## 8. パフォーマンス考慮事項
 
 ### 画像最適化
 - Next.js Image コンポーネント使用
