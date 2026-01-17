@@ -53,7 +53,8 @@
 | `/project:requirements` | 要件定義を行う |
 | `/project:design` | 設計を行う |
 | `/project:api` | API設計を行う |
-| `/project:prototype` | プロトタイプ実装（デザイン確認用） |
+| `/project:setup` | 環境構築を行う |
+| `/project:prototype` | プロトタイプ実装（デザインコンセプト確定） |
 | `/project:implement` | 本実装を行う |
 | `/project:continue` | 進捗確認・作業再開 |
 | `/project:review` | コードレビューと修正 |
@@ -65,7 +66,7 @@
 
 ## 4. 環境構築手順
 
-`/project:implement` で src/ が存在しない場合に実行：
+`/project:setup` で src/ が存在しない場合に実行：
 
 ### 4.1 Next.js プロジェクト作成
 
@@ -476,10 +477,22 @@ export default function RootLayout({ children }) {
 ## 3. 状態管理
 <!-- 状態管理の方針 -->
 
-## 4. 主要コンポーネント
+## 4. データ通信方針
+<!-- API / Server Actions / なし のいずれかを選択し、理由を記載 -->
+
+### 方針
+<!-- 例: Server Actions / REST API / GraphQL / なし（静的サイト） -->
+
+### 選定理由
+<!-- なぜこの方針を選んだか -->
+
+### 補足
+<!-- 外部API連携がある場合はここに記載 -->
+
+## 5. 主要コンポーネント
 <!-- コンポーネント設計 -->
 
-## 5. 外部連携
+## 6. 外部連携
 <!-- API、外部サービス -->
 ```
 
@@ -659,6 +672,128 @@ components:
 - operationId: camelCase（`getUsers`, `createUser`）
 - スキーマ名: PascalCase（`UserResponse`, `CreateUserRequest`）
 
+### DESIGN_CONCEPT.md テンプレート
+
+```markdown
+# デザインコンセプト
+
+## 1. コンセプト
+<!-- サイト全体のトーン&マナー（例: モダン、温かみ、プロフェッショナル、ポップ） -->
+
+## 2. カラーパレット
+
+| 用途 | カラー | Tailwind | 使用箇所 |
+|------|--------|----------|----------|
+| Primary | #3B82F6 | blue-500 | ボタン、リンク |
+| Secondary | #10B981 | emerald-500 | アクセント |
+| Background | #FFFFFF | white | ページ背景 |
+| Surface | #F9FAFB | gray-50 | カード背景 |
+| Text Primary | #1F2937 | gray-800 | 本文 |
+| Text Secondary | #6B7280 | gray-500 | 補足テキスト |
+| Border | #E5E7EB | gray-200 | 境界線 |
+| Error | #EF4444 | red-500 | エラー表示 |
+| Success | #22C55E | green-500 | 成功表示 |
+
+## 3. タイポグラフィ
+
+| 要素 | サイズ | ウェイト | Tailwind |
+|------|--------|----------|----------|
+| H1 | 36px | Bold | text-4xl font-bold |
+| H2 | 30px | Bold | text-3xl font-bold |
+| H3 | 24px | Semibold | text-2xl font-semibold |
+| Body | 16px | Normal | text-base |
+| Small | 14px | Normal | text-sm |
+| Caption | 12px | Normal | text-xs |
+
+- フォントファミリー: システムフォント（font-sans）
+
+## 4. スペーシング
+
+| 用途 | サイズ | Tailwind |
+|------|--------|----------|
+| セクション間 | 64px | py-16 |
+| カード内余白 | 24px | p-6 |
+| 要素間 | 16px | gap-4 |
+| テキスト間 | 8px | gap-2 |
+
+## 5. コンポーネントスタイル
+
+### ボタン
+- Primary: 背景色 Primary、白文字、hover で少し暗く
+- Secondary: 枠線のみ、hover で背景薄く
+- 角丸: rounded-lg（8px）
+
+### カード
+- 背景: Surface
+- 影: shadow-sm
+- 角丸: rounded-xl（12px）
+
+### 入力フォーム
+- 枠線: Border
+- フォーカス時: Primary の枠線
+- 角丸: rounded-md（6px）
+
+## 6. 必要な画像一覧
+
+### 画像スタイルガイド
+<!-- 全画像で統一するスタイルを定義 -->
+- **スタイル**: フラットイラスト / 写真風 / 3D / アイソメトリック など
+- **トーン**: 明るい / 落ち着いた / ビビッド など
+- **配色**: ブランドカラー（Primary, Secondary）を基調に
+- **テイスト**: ビジネス / カジュアル / テック / ナチュラル など
+
+### プロトタイプ必須（TOP画面用）
+
+#### ブランド
+| ファイル名 | パス | サイズ | 背景 | プロンプト |
+|-----------|------|--------|------|-----------|
+| logo.svg | /images/logo.svg | 180x40 | 透過 | <!-- ロゴデザインの説明 --> |
+| logo-white.svg | /images/logo-white.svg | 180x40 | 透過 | <!-- 白バージョン（ダークBG用） --> |
+| favicon.ico | /favicon.ico | 32x32 | 透過 | <!-- ファビコン --> |
+| og-image.jpg | /images/og-image.jpg | 1200x630 | - | <!-- SNSシェア時に表示される画像 --> |
+
+#### ヒーローセクション
+| ファイル名 | パス | サイズ | 背景 | プロンプト |
+|-----------|------|--------|------|-----------|
+| hero.jpg | /images/hero/main.jpg | 1920x1080 | - | <!-- メインビジュアルの詳細説明 --> |
+| hero-mobile.jpg | /images/hero/mobile.jpg | 750x1000 | - | <!-- モバイル用縦構図 --> |
+
+#### 機能紹介セクション
+| ファイル名 | パス | サイズ | 背景 | プロンプト |
+|-----------|------|--------|------|-----------|
+| feature-01.png | /images/features/01.png | 400x300 | 透過 | <!-- 機能1を表すイラスト --> |
+| feature-02.png | /images/features/02.png | 400x300 | 透過 | <!-- 機能2を表すイラスト --> |
+| feature-03.png | /images/features/03.png | 400x300 | 透過 | <!-- 機能3を表すイラスト --> |
+
+#### お客様の声・実績
+| ファイル名 | パス | サイズ | 背景 | プロンプト |
+|-----------|------|--------|------|-----------|
+| avatar-01.jpg | /images/avatars/01.jpg | 100x100 | - | <!-- ユーザーアバター1 --> |
+| avatar-02.jpg | /images/avatars/02.jpg | 100x100 | - | <!-- ユーザーアバター2 --> |
+| avatar-03.jpg | /images/avatars/03.jpg | 100x100 | - | <!-- ユーザーアバター3 --> |
+
+#### CTAセクション
+| ファイル名 | パス | サイズ | 背景 | プロンプト |
+|-----------|------|--------|------|-----------|
+| cta-bg.jpg | /images/cta/bg.jpg | 1920x600 | - | <!-- CTA背景画像 --> |
+
+### 本実装で追加
+<!-- 他画面で必要な画像をここに追記 -->
+| ファイル名 | パス | サイズ | 背景 | プロンプト |
+|-----------|------|--------|------|-----------|
+| <!-- 例: about-hero.jpg --> | <!-- /images/about/hero.jpg --> | <!-- 1920x600 --> | <!-- - --> | <!-- 説明 --> |
+
+### 画像生成時の注意
+- 上記スタイルガイドに従い、統一感のあるスタイルで生成する
+- ブランドカラーを意識する
+- 背景透過が必要な場合は「透過」と明記
+- プロンプトは具体的に書く（被写体、構図、雰囲気、色調など）
+
+## 7. 参考サイト・イメージ
+<!-- デザインの参考にしたサイトやスクリーンショット -->
+<!-- URL や特徴を記載 -->
+```
+
 ---
 
 ## 11. 参照ドキュメント
@@ -666,3 +801,4 @@ components:
 - [README](./README.md)
 - [開発フロー](./docs/DEVELOPMENT_FLOW.md)
 - [GitHub MCP 設定](./docs/SETUP_GITHUB_MCP.md)
+- [Vercel MCP 設定](./docs/SETUP_VERCEL_MCP.md)

@@ -23,6 +23,7 @@ description: 設計を行う
    - 技術スタック
    - ディレクトリ構成
    - 状態管理方針
+   - データ通信方針（ステップ9で決定後に追記）
 
 3. docs/SCREEN.md を作成
    - 画面一覧
@@ -51,17 +52,23 @@ description: 設計を行う
 
 ## 次のステップ判断
 
-9. API設計が必要か判断し、ユーザーに提案する
+9. **データ通信方針を決定し、DESIGN.md に記録する**
    - PRD.md と DESIGN.md の内容から判断
-   - 以下の場合は `/project:api` → `/project:prototype` の順を提案：
-     - 外部APIと連携する
-     - バックエンドを自前で作る
-     - データの永続化が必要
-   - 以下の場合は `/project:prototype` を提案：
-     - フロントエンドのみで完結する
-     - 静的サイト
-     - ローカルストレージのみ使用
+   - ユーザーに以下の選択肢を提示：
+     - **Server Actions**: シンプルなデータ操作、Next.js 内で完結
+     - **REST API（/project:api）**: 外部公開、モバイルアプリ連携、複雑なAPI
+     - **なし**: 静的サイト、ローカルストレージのみ
    - 判断理由を説明し、ユーザーの承認を得る
+   - **【必須】決定後、docs/DESIGN.md の「データ通信方針」セクションに記録：**
+     - 選択した方針（Server Actions / REST API / なし）
+     - 選定理由
+     - 外部API連携がある場合はその情報も記載
+
+   次のステップ：
+   - REST API を選択 → `/project:api` → `/project:setup`
+   - Server Actions または なし → `/project:setup`
+
+   ※ src/ が既に存在する場合は `/project:prototype` へ直接進む
 
 ## GitHub Issue 作成
 

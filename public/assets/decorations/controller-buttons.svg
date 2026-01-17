@@ -1,0 +1,15 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#A78BFA" stroke-width="4">
+    <circle cx="48" cy="24" r="12" />
+    <text x="44" y="28" font-family="Arial" font-size="12" stroke="none" fill="#A78BFA">Y</text>
+
+    <circle cx="72" cy="48" r="12" />
+    <text x="68" y="52" font-family="Arial" font-size="12" stroke="none" fill="#A78BFA">B</text>
+
+    <circle cx="24" cy="48" r="12" />
+    <text x="20" y="52" font-family="Arial" font-size="12" stroke="none" fill="#A78BFA">X</text>
+
+    <circle cx="48" cy="72" r="12" />
+    <text x="44" y="76" font-family="Arial" font-size="12" stroke="none" fill="#A78BFA">A</text>
+  </g>
+</svg>

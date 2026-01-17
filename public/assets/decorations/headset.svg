@@ -1,0 +1,16 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hs-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  <!-- Headband -->
+  <path d="M34 60 C34 30 94 30 94 60" fill="none" stroke="url(#hs-grad)" stroke-width="6"/>
+  <!-- Ear cups -->
+  <rect x="24" y="50" width="20" height="30" rx="5" fill="url(#hs-grad)"/>
+  <rect x="84" y="50" width="20" height="30" rx="5" fill="url(#hs-grad)"/>
+  <!-- Mic -->
+  <path d="M30 80 Q30 100 60 95" fill="none" stroke="url(#hs-grad)" stroke-width="3"/>
+  <circle cx="60" cy="95" r="3" fill="url(#hs-grad)"/>
+</svg>
