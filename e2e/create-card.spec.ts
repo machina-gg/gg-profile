@@ -89,6 +89,20 @@ test.describe('カード作成ページ', () => {
     // 文字数が表示される
     await expect(page.getByText(/\/100/)).toBeVisible()
   })
+
+  test('プロフィール画像のプリセットが選択できる', async ({ page }) => {
+    // プリセット画像ボタンが表示される
+    const presetButtons = page.locator('button[title]').filter({
+      has: page.locator('img'),
+    })
+    await expect(presetButtons.first()).toBeVisible()
+
+    // プリセットを選択
+    await presetButtons.nth(1).click()
+
+    // 選択したプリセットがハイライトされる
+    await expect(presetButtons.nth(1)).toHaveClass(/border-primary/)
+  })
 })
 
 test.describe('カード作成 - モバイル表示', () => {

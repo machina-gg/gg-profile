@@ -86,17 +86,17 @@ CREATE TRIGGER cards_updated_at
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO users (id, email, display_name, avatar_url, provider)
+  INSERT INTO public.users (id, email, display_name, avatar_url, provider)
   VALUES (
     NEW.id,
     NEW.email,
     COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name'),
     NEW.raw_user_meta_data->>'avatar_url',
-    NEW.raw_app_meta_data->>'provider'
+    COALESCE(NEW.raw_app_meta_data->>'provider', 'unknown')
   );
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users

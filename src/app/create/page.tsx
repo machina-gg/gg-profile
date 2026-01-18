@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { CardForm } from '@/components/form/CardForm'
 import { CardPreview } from '@/components/card/CardPreview'
+import { createClient } from '@/lib/supabase/client'
 import type { CardFormValues } from '@/lib/validations/card'
 
 const defaultFormData: CardFormValues = {
@@ -24,7 +25,34 @@ export default function CreatePage() {
   const router = useRouter()
   const cardRef = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState<CardFormValues>(defaultFormData)
+  const [initialData, setInitialData] = useState<Partial<CardFormValues>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    const supabase = createClient()
+
+    const fetchUserData = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (session?.user) {
+        const providers = session.user.app_metadata?.providers as string[] | undefined
+        const metadata = session.user.user_metadata
+
+        // Discord連携がある場合、ユーザー名を自動入力
+        if (providers?.includes('discord') && metadata) {
+          // full_name (ユーザー名) を優先、なければ name (ユーザー名#タグ)
+          const discordUsername = metadata.full_name || metadata.name
+
+          if (discordUsername) {
+            setInitialData(prev => ({ ...prev, discordId: discordUsername }))
+            setFormData(prev => ({ ...prev, discordId: discordUsername }))
+          }
+        }
+      }
+    }
+
+    fetchUserData()
+  }, [])
 
   const handleFormChange = useCallback((data: CardFormValues) => {
     setFormData(data)
@@ -71,8 +99,10 @@ export default function CreatePage() {
           <div className="order-1 lg:order-2">
             <div className="bg-card rounded-lg border p-6">
               <CardForm
+                key={initialData.discordId || 'default'}
                 onSubmit={handleSubmit}
                 onChange={handleFormChange}
+                initialData={initialData}
                 isSubmitting={isSubmitting}
               />
             </div>

@@ -10,6 +10,7 @@ import { AgentSelector } from '@/components/form/AgentSelector'
 import { PlayStyleSelector } from '@/components/form/PlayStyleSelector'
 import { BackgroundSelector } from '@/components/form/BackgroundSelector'
 import { SnsInput } from '@/components/form/SnsInput'
+import { ImageUploader } from '@/components/form/ImageUploader'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -96,6 +97,13 @@ export function CardForm({
           <p className="text-sm text-red-500">{errors.playerName.message}</p>
         )}
       </div>
+
+      <ImageUploader
+        value={formValues.profileImage}
+        onChange={(url) => setValue('profileImage', url)}
+        error={errors.profileImage?.message}
+        disabled={isSubmitting}
+      />
 
       <RankSelector
         game={formValues.game}

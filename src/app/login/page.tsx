@@ -1,7 +1,14 @@
 import { LoginButton } from '@/components/auth/LoginButton'
 import Link from 'next/link'
 
-export default function LoginPage() {
+type LoginPageProps = {
+  searchParams: Promise<{ redirect?: string }>
+}
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const { redirect } = await searchParams
+  const redirectTo = redirect || '/create'
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="w-full max-w-md px-4">
@@ -13,8 +20,8 @@ export default function LoginPage() {
         </div>
 
         <div className="bg-card rounded-lg border p-6 space-y-4">
-          <LoginButton provider="discord" redirectTo="/create" />
-          <LoginButton provider="google" redirectTo="/create" />
+          <LoginButton provider="discord" redirectTo={redirectTo} />
+          <LoginButton provider="google" redirectTo={redirectTo} />
 
           <p className="text-xs text-center text-muted-foreground pt-4">
             ログインすると

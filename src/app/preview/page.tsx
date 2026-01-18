@@ -1,17 +1,39 @@
 'use client'
 
-import { useRef, useMemo, Suspense } from 'react'
+import { useRef, useMemo, Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { CardPreview } from '@/components/card/CardPreview'
 import { CardShare } from '@/components/card/CardShare'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { ArrowLeft, Plus, Save, LogIn, Loader2 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { saveCard } from '@/app/actions/card'
 import type { CardFormValues } from '@/lib/validations/card'
+import type { User } from '@supabase/supabase-js'
 
 function PreviewContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const cardRef = useRef<HTMLDivElement>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const supabase = createClient()
+
+    const getUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+      setIsLoading(false)
+    }
+
+    getUser()
+  }, [])
 
   const formData = useMemo<CardFormValues>(() => {
     const game = searchParams.get('game') || 'valorant'
@@ -43,6 +65,21 @@ function PreviewContent() {
 
   const shareText = `${formData.playerName}のプロフィールカードを作りました！ #GGprofile`
 
+  const handleSave = async () => {
+    setIsSaving(true)
+    setSaveError(null)
+
+    const result = await saveCard(formData)
+
+    if (result.error) {
+      setSaveError(result.error)
+      setIsSaving(false)
+      return
+    }
+
+    router.push('/mypage')
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -61,6 +98,39 @@ function PreviewContent() {
             shareText={shareText}
             playerName={formData.playerName}
           />
+
+          {/* 保存ボタン（ログイン状態で切り替え） */}
+          {!isLoading && (
+            <div className="w-full space-y-2">
+              {saveError && (
+                <p className="text-sm text-red-500 text-center">{saveError}</p>
+              )}
+              {user ? (
+                <Button
+                  onClick={handleSave}
+                  className="w-full"
+                  size="lg"
+                  disabled={isSaving}
+                >
+                  {isSaving ? (
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                  ) : (
+                    <Save className="h-5 w-5 mr-2" />
+                  )}
+                  {isSaving ? '保存中...' : 'マイページに保存'}
+                </Button>
+              ) : (
+                <Button asChild variant="secondary" className="w-full" size="lg">
+                  <Link
+                    href={`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+                  >
+                    <LogIn className="h-5 w-5 mr-2" />
+                    ログインして保存
+                  </Link>
+                </Button>
+              )}
+            </div>
+          )}
 
           <div className="w-full border-t pt-6 mt-4">
             <div className="flex flex-col sm:flex-row gap-3">

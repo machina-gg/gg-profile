@@ -151,6 +151,7 @@ Claude Code で以下のスラッシュコマンドが使用可能です：
 | [SCREEN.md](./docs/SCREEN.md)                         | 画面設計           |
 | [COMPONENT.md](./docs/COMPONENT.md)                   | コンポーネント設計 |
 | [ERD.md](./docs/ERD.md)                               | データベース設計   |
+| [DEPLOY.md](./docs/DEPLOY.md)                         | デプロイ手順       |
 | [競合調査レポート](./reports/COMPETITIVE_ANALYSIS.md) | 競合サービス分析   |
 | [作業履歴](./reports/WORK_LOG.md)                     | 開発作業ログ       |
 

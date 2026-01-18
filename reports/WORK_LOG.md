@@ -7,6 +7,76 @@
 
 ## 2026-01-18
 
+### Discord ID 自動入力機能
+
+- **実施内容**: Discord連携済みユーザーがカード作成時にDiscord IDを自動入力
+- **変更ファイル**:
+  - src/app/create/page.tsx - ログイン情報からDiscordユーザー名を取得して初期値に設定
+- **備考**: 表示名(global_name)ではなくユーザー名(full_name)を使用（検索可能なため）
+
+---
+
+### カード保存機能の実装
+
+- **実施内容**: プレビューページからカードをDBに保存する機能を実装
+- **新規作成ファイル**:
+  - src/app/actions/card.ts - カード保存/取得/削除のServer Actions
+- **変更ファイル**:
+  - src/app/preview/page.tsx - handleSave実装、保存中状態表示
+  - src/app/mypage/page.tsx - 保存済みカード一覧表示、削除機能
+- **ビルド確認**: 成功
+
+---
+
+### Supabase認証のバグ修正
+
+- **実施内容**: OAuth認証時に「Database error saving new user」エラーが発生する問題を修正
+- **原因**: トリガー関数 `handle_new_user()` でスキーマが明示されておらず、`search_path` の問題で正しいテーブルが参照されなかった
+- **修正内容**:
+  - `INSERT INTO users` → `INSERT INTO public.users` に変更
+  - `SET search_path = public` を関数に追加
+- **変更ファイル**:
+  - supabase/migrations/20260118000000_initial_schema.sql
+  - src/app/auth/callback/route.ts - Cookie設定の修正（httpOnly: false）
+  - src/lib/supabase/middleware.ts - Cookie設定の修正
+
+---
+
+### ログイン導線の追加
+
+- **実施内容**: ヘッダーとプレビューページにログイン導線を追加
+- **対応方針**: カード作成は自由、保存時にログイン必須
+- **変更内容**:
+  - Header: ログイン状態に応じてログインボタン/ユーザーメニューを表示
+  - プレビューページ: 「マイページに保存」/「ログインして保存」ボタンを追加
+  - ログインページ: `redirect`クエリパラメータに対応（ログイン後に元のページへ戻る）
+- **変更ファイル**:
+  - src/components/layout/Header/Header.tsx - 認証状態管理、ユーザードロップダウン追加
+  - src/app/preview/page.tsx - 保存/ログインボタン追加
+  - src/app/login/page.tsx - redirectパラメータ対応
+  - src/components/ui/dropdown-menu.tsx（shadcn/uiで追加）
+- **ビルド確認**: 成功
+
+---
+
+### プロフィール画像設定機能の実装
+
+- **実施内容**: カード作成時にプロフィール画像を設定できる機能を追加
+- **機能**:
+  - プリセット画像から選択（ぴかる、ねおん、みんと）
+  - 画像アップロード（Supabase Storage連携）
+  - プレビューでリアルタイム反映
+- **新規作成ファイル**:
+  - src/components/form/ImageUploader/ImageUploader.tsx
+  - src/components/form/ImageUploader/index.ts
+  - src/app/actions/upload.ts（Server Action）
+- **変更ファイル**:
+  - src/components/form/CardForm/CardForm.tsx - ImageUploader追加
+  - e2e/create-card.spec.ts - プロフィール画像テスト追加
+- **テスト結果**: 21テスト全件パス
+
+---
+
 ### E2Eテストの実装
 
 - **実施内容**: PlaywrightによるE2Eテストを作成
