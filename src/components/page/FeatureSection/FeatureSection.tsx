@@ -1,7 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { Sparkles, Share2, Image as ImageIcon, Palette, Shield, Zap } from 'lucide-react'
+import {
+  Sparkles,
+  Share2,
+  Image as ImageIcon,
+  Palette,
+  Shield,
+  Zap,
+} from 'lucide-react'
 
 const features = [
   {
@@ -43,7 +50,10 @@ const features = [
 ]
 
 const getColorClasses = (color: string) => {
-  const colors: Record<string, { icon: string; border: string; bg: string; glow: string }> = {
+  const colors: Record<
+    string,
+    { icon: string; border: string; bg: string; glow: string }
+  > = {
     purple: {
       icon: 'text-[#A78BFA]',
       border: 'border-[#A78BFA]/20 hover:border-[#A78BFA]/60',
@@ -90,37 +100,89 @@ export function FeatureSection() {
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `linear-gradient(rgba(167,139,250,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(167,139,250,0.3) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
+            backgroundSize: '50px 50px',
           }}
         />
         {/* Sparkles and stars */}
-        <Image src="/assets/decorations/sparkle-1.svg" alt="" width={28} height={28}
-          className="absolute top-16 left-[10%] opacity-40 animate-sparkle" />
-        <Image src="/assets/decorations/sparkle-2.svg" alt="" width={24} height={24}
-          className="absolute top-24 right-[15%] opacity-35 animate-sparkle" style={{ animationDelay: '0.8s' }} />
-        <Image src="/assets/decorations/star-1.svg" alt="" width={18} height={18}
-          className="absolute top-[40%] left-[5%] opacity-30 animate-twinkle" style={{ animationDelay: '0.5s' }} />
-        <Image src="/assets/decorations/star-2.svg" alt="" width={16} height={16}
-          className="absolute top-[30%] right-[8%] opacity-25 animate-twinkle" style={{ animationDelay: '1.2s' }} />
-        <Image src="/assets/decorations/sparkle-1.svg" alt="" width={22} height={22}
-          className="absolute bottom-32 left-[20%] opacity-35 animate-sparkle" style={{ animationDelay: '1.5s' }} />
-        <Image src="/assets/decorations/star-1.svg" alt="" width={20} height={20}
-          className="absolute bottom-24 right-[25%] opacity-30 animate-twinkle" style={{ animationDelay: '0.3s' }} />
+        <Image
+          src="/assets/decorations/sparkle-1.svg"
+          alt=""
+          width={28}
+          height={28}
+          className="absolute top-16 left-[10%] opacity-40 animate-sparkle"
+        />
+        <Image
+          src="/assets/decorations/sparkle-2.svg"
+          alt=""
+          width={24}
+          height={24}
+          className="absolute top-24 right-[15%] opacity-35 animate-sparkle"
+          style={{ animationDelay: '0.8s' }}
+        />
+        <Image
+          src="/assets/decorations/star-1.svg"
+          alt=""
+          width={18}
+          height={18}
+          className="absolute top-[40%] left-[5%] opacity-30 animate-twinkle"
+          style={{ animationDelay: '0.5s' }}
+        />
+        <Image
+          src="/assets/decorations/star-2.svg"
+          alt=""
+          width={16}
+          height={16}
+          className="absolute top-[30%] right-[8%] opacity-25 animate-twinkle"
+          style={{ animationDelay: '1.2s' }}
+        />
+        <Image
+          src="/assets/decorations/sparkle-1.svg"
+          alt=""
+          width={22}
+          height={22}
+          className="absolute bottom-32 left-[20%] opacity-35 animate-sparkle"
+          style={{ animationDelay: '1.5s' }}
+        />
+        <Image
+          src="/assets/decorations/star-1.svg"
+          alt=""
+          width={20}
+          height={20}
+          className="absolute bottom-24 right-[25%] opacity-30 animate-twinkle"
+          style={{ animationDelay: '0.3s' }}
+        />
       </div>
 
       <div className="container relative mx-auto px-4">
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
-            <Image src="/assets/decorations/star-1.svg" alt="" width={16} height={16} className="opacity-60 animate-twinkle" />
+            <Image
+              src="/assets/decorations/star-1.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="opacity-60 animate-twinkle"
+            />
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#A78BFA]" />
-            <span className="text-sm tracking-[0.2em] text-[#A78BFA] font-medium uppercase">Features</span>
+            <span className="text-sm tracking-[0.2em] text-[#A78BFA] font-medium uppercase">
+              Features
+            </span>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-[#A78BFA]" />
-            <Image src="/assets/decorations/star-2.svg" alt="" width={16} height={16} className="opacity-60 animate-twinkle" style={{ animationDelay: '0.5s' }} />
+            <Image
+              src="/assets/decorations/star-2.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="opacity-60 animate-twinkle"
+              style={{ animationDelay: '0.5s' }}
+            />
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
             <span className="text-white">GGprofileの</span>
-            <span className="bg-gradient-to-r from-[#A78BFA] via-[#F472B6] to-[#67E8F9] bg-clip-text text-transparent">とくちょう</span>
+            <span className="bg-gradient-to-r from-[#A78BFA] via-[#F472B6] to-[#67E8F9] bg-clip-text text-transparent">
+              とくちょう
+            </span>
           </h2>
           <p className="text-gray-500 text-lg">
             ゲーマーがSNSで自分をアピールするための機能
@@ -137,7 +199,9 @@ export function FeatureSection() {
                 className={`group relative p-6 rounded-2xl border backdrop-blur-sm transition-all duration-300 bg-[#0f0f1a]/50 ${colors.border} ${colors.glow}`}
               >
                 {/* Icon */}
-                <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${colors.bg}`}>
+                <div
+                  className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${colors.bg}`}
+                >
                   <feature.icon className={`h-6 w-6 ${colors.icon}`} />
                 </div>
 

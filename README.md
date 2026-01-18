@@ -1,4 +1,11 @@
 # GGprofile
+## 次のタスク
+- [ ] まだ、改善点がたくさんあるので改善していく
+- [ ] リファクタリング
+- [ ] vercel上にステージを追加する
+- [ ] 認証とかのローカルプロジェクトについて、テンプレートに書いてなかったら更新する
+- [ ] gitにコミットすべきでないものをコミットさせないようにテンプレートに追加
+
 
 ## About
 
@@ -20,34 +27,38 @@ GGprofileは以下の特徴で課題を解決します：
 ## Tech Stack
 
 ### コア技術
-| カテゴリ | 技術 |
-|----------|------|
-| フレームワーク | Next.js 16.x (App Router) |
-| 言語 | TypeScript 5.x |
-| スタイリング | Tailwind CSS 4.x |
-| UIコンポーネント | shadcn/ui |
-| フォーム | React Hook Form + Zod |
+
+| カテゴリ         | 技術                      |
+| ---------------- | ------------------------- |
+| フレームワーク   | Next.js 16.x (App Router) |
+| 言語             | TypeScript 5.x            |
+| スタイリング     | Tailwind CSS 4.x          |
+| UIコンポーネント | shadcn/ui                 |
+| フォーム         | React Hook Form + Zod     |
 
 ### データ・ストレージ
-| カテゴリ | 技術 |
-|----------|------|
+
+| カテゴリ     | 技術                  |
+| ------------ | --------------------- |
 | データベース | Supabase (PostgreSQL) |
-| ストレージ | Supabase Storage |
+| ストレージ   | Supabase Storage      |
 
 ### 画像生成
-| カテゴリ | 技術 |
-|----------|------|
-| OGP画像生成 | @vercel/og |
+
+| カテゴリ       | 技術          |
+| -------------- | ------------- |
+| OGP画像生成    | @vercel/og    |
 | カード画像出力 | html-to-image |
 
 ### 開発・運用
-| カテゴリ | 技術 |
-|----------|------|
-| Linter / Formatter | ESLint / Prettier |
-| テスト | Vitest + Playwright |
-| ホスティング | Vercel |
-| CI/CD | GitHub Actions |
-| Analytics | Vercel Analytics |
+
+| カテゴリ           | 技術                |
+| ------------------ | ------------------- |
+| Linter / Formatter | ESLint / Prettier   |
+| テスト             | Vitest + Playwright |
+| ホスティング       | Vercel              |
+| CI/CD              | GitHub Actions      |
+| Analytics          | Vercel Analytics    |
 
 ## ディレクトリ構成
 
@@ -99,76 +110,79 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 👉 [開発フロー図](./docs/DEVELOPMENT_FLOW.md)
 
-| # | フェーズ | コマンド | 成果物 |
-|---|----------|----------|--------|
-| 1 | 要件定義 | `/project:requirements` | docs/PRD.md, reports/COMPETITIVE_ANALYSIS.md |
-| 2 | 設計 | `/project:design` | docs/DESIGN.md, SCREEN.md, GitHub Issues |
-| 3 | API設計 | `/project:api` | docs/openapi.yaml |
-| 4 | 実装 | `/project:implement` | src/, Issue更新 |
-| 5 | 繰り返し | `/project:continue` | - |
-| 6 | デプロイ | `/project:deploy` | 本番環境 |
+| #   | フェーズ | コマンド                | 成果物                                       |
+| --- | -------- | ----------------------- | -------------------------------------------- |
+| 1   | 要件定義 | `/project:requirements` | docs/PRD.md, reports/COMPETITIVE_ANALYSIS.md |
+| 2   | 設計     | `/project:design`       | docs/DESIGN.md, SCREEN.md, GitHub Issues     |
+| 3   | API設計  | `/project:api`          | docs/openapi.yaml                            |
+| 4   | 実装     | `/project:implement`    | src/, Issue更新                              |
+| 5   | 繰り返し | `/project:continue`     | -                                            |
+| 6   | デプロイ | `/project:deploy`       | 本番環境                                     |
 
 ## Commands
 
 Claude Code で以下のスラッシュコマンドが使用可能です：
 
-| コマンド | 説明 | 成果物 |
-|----------|------|--------|
-| `/project:requirements` | 要件定義を行う | docs/PRD.md, reports/COMPETITIVE_ANALYSIS.md |
-| `/project:design` | 設計を行う | docs/DESIGN.md, SCREEN.md, COMPONENT.md, ERD.md, GitHub Issues |
-| `/project:api` | API設計を行う | docs/openapi.yaml |
-| `/project:implement` | 実装を行う | src/, Issue更新 |
-| `/project:continue` | 進捗確認・作業再開 | - |
-| `/project:review` | コードレビューと修正 | - |
-| `/project:deploy` | デプロイを行う | 本番環境, Analytics設定 |
+| コマンド                | 説明                 | 成果物                                                         |
+| ----------------------- | -------------------- | -------------------------------------------------------------- |
+| `/project:requirements` | 要件定義を行う       | docs/PRD.md, reports/COMPETITIVE_ANALYSIS.md                   |
+| `/project:design`       | 設計を行う           | docs/DESIGN.md, SCREEN.md, COMPONENT.md, ERD.md, GitHub Issues |
+| `/project:api`          | API設計を行う        | docs/openapi.yaml                                              |
+| `/project:implement`    | 実装を行う           | src/, Issue更新                                                |
+| `/project:continue`     | 進捗確認・作業再開   | -                                                              |
+| `/project:review`       | コードレビューと修正 | -                                                              |
+| `/project:deploy`       | デプロイを行う       | 本番環境, Analytics設定                                        |
 
 ## npm Scripts
 
 環境構築後（`/project:implement` 実行後）に使用可能：
 
-| コマンド | 説明 |
-|----------|------|
-| `npm run dev` | 開発サーバー起動 |
-| `npm run build` | 本番ビルド |
-| `npm run start` | 本番サーバー起動 |
-| `npm run lint` | ESLint 実行 |
-| `npm run format` | Prettier でフォーマット |
-| `npm run test` | Vitest で単体テスト |
-| `npm run test:e2e` | Playwright で E2E テスト |
-| `npm run storybook` | Storybook 起動 |
-| `npm run docs:api` | OpenAPI ドキュメント表示 |
+| コマンド            | 説明                     |
+| ------------------- | ------------------------ |
+| `npm run dev`       | 開発サーバー起動         |
+| `npm run build`     | 本番ビルド               |
+| `npm run start`     | 本番サーバー起動         |
+| `npm run lint`      | ESLint 実行              |
+| `npm run format`    | Prettier でフォーマット  |
+| `npm run test`      | Vitest で単体テスト      |
+| `npm run test:e2e`  | Playwright で E2E テスト |
+| `npm run storybook` | Storybook 起動           |
+| `npm run docs:api`  | OpenAPI ドキュメント表示 |
 
 ## Documentation
 
-| ドキュメント | 説明 |
-|-------------|------|
-| [PRD.md](./docs/PRD.md) | 要件定義書 |
-| [DESIGN.md](./docs/DESIGN.md) | 技術設計書 |
-| [SCREEN.md](./docs/SCREEN.md) | 画面設計 |
-| [COMPONENT.md](./docs/COMPONENT.md) | コンポーネント設計 |
-| [ERD.md](./docs/ERD.md) | データベース設計 |
-| [競合調査レポート](./reports/COMPETITIVE_ANALYSIS.md) | 競合サービス分析 |
-| [作業履歴](./reports/WORK_LOG.md) | 開発作業ログ |
+| ドキュメント                                          | 説明               |
+| ----------------------------------------------------- | ------------------ |
+| [PRD.md](./docs/PRD.md)                               | 要件定義書         |
+| [DESIGN.md](./docs/DESIGN.md)                         | 技術設計書         |
+| [SCREEN.md](./docs/SCREEN.md)                         | 画面設計           |
+| [COMPONENT.md](./docs/COMPONENT.md)                   | コンポーネント設計 |
+| [ERD.md](./docs/ERD.md)                               | データベース設計   |
+| [DEPLOY.md](./docs/DEPLOY.md)                         | デプロイ手順       |
+| [競合調査レポート](./reports/COMPETITIVE_ANALYSIS.md) | 競合サービス分析   |
+| [作業履歴](./reports/WORK_LOG.md)                     | 開発作業ログ       |
 
 ## Prerequisites
 
 このテンプレートを使用するには以下が必要です：
 
-| 項目 | 必須 | 説明 |
-|------|------|------|
-| Node.js 24.x | ✅ | JavaScript ランタイム |
-| Claude Code | ✅ | AI コーディングアシスタント |
-| GitHub MCP | ✅ | Issue 管理に必要 |
-| Vercel MCP | ✅ | デプロイに必要 |
+| 項目         | 必須 | 説明                        |
+| ------------ | ---- | --------------------------- |
+| Node.js 24.x | ✅   | JavaScript ランタイム       |
+| Claude Code  | ✅   | AI コーディングアシスタント |
+| GitHub MCP   | ✅   | Issue 管理に必要            |
+| Vercel MCP   | ✅   | デプロイに必要              |
 
 ### セットアップ手順
 
 1. **Node.js** をインストール（v24推奨）
+
    ```bash
    node -v  # v24.x.x を確認
    ```
 
 2. **Claude Code** をインストール
+
    ```bash
    npm install -g @anthropic-ai/claude-code
    ```

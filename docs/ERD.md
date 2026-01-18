@@ -2,10 +2,10 @@
 
 ## 1. テーブル一覧
 
-| テーブル名 | 説明 |
-|-----------|------|
-| users | ユーザー情報（Supabase Auth連携、ログイン時に自動作成） |
-| cards | プロフィールカード情報 |
+| テーブル名 | 説明                                                    |
+| ---------- | ------------------------------------------------------- |
+| users      | ユーザー情報（Supabase Auth連携、ログイン時に自動作成） |
+| cards      | プロフィールカード情報                                  |
 
 ## 2. ER図
 
@@ -48,21 +48,22 @@ erDiagram
 
 ユーザー情報を保存するテーブル。**Discord/Googleログイン時にトリガーで自動作成される。**
 
-| カラム | 型 | NULL | デフォルト | 説明 |
-|--------|-----|------|-----------|------|
-| id | uuid | NO | - | Supabase Auth user.id |
-| email | varchar(255) | NO | - | メールアドレス |
-| display_name | varchar(50) | YES | NULL | 表示名（プロバイダーから自動取得） |
-| avatar_url | text | YES | NULL | アバター画像URL（プロバイダーから自動取得） |
-| provider | varchar(20) | NO | - | 認証プロバイダー（discord/google） |
-| created_at | timestamptz | NO | now() | 作成日時 |
-| updated_at | timestamptz | NO | now() | 更新日時 |
+| カラム       | 型           | NULL | デフォルト | 説明                                        |
+| ------------ | ------------ | ---- | ---------- | ------------------------------------------- |
+| id           | uuid         | NO   | -          | Supabase Auth user.id                       |
+| email        | varchar(255) | NO   | -          | メールアドレス                              |
+| display_name | varchar(50)  | YES  | NULL       | 表示名（プロバイダーから自動取得）          |
+| avatar_url   | text         | YES  | NULL       | アバター画像URL（プロバイダーから自動取得） |
+| provider     | varchar(20)  | NO   | -          | 認証プロバイダー（discord/google）          |
+| created_at   | timestamptz  | NO   | now()      | 作成日時                                    |
+| updated_at   | timestamptz  | NO   | now()      | 更新日時                                    |
 
 #### インデックス
-| インデックス名 | カラム | 種別 |
-|---------------|--------|------|
-| users_pkey | id | PRIMARY |
-| users_email_idx | email | UNIQUE |
+
+| インデックス名  | カラム | 種別    |
+| --------------- | ------ | ------- |
+| users_pkey      | id     | PRIMARY |
+| users_email_idx | email  | UNIQUE  |
 
 ---
 
@@ -70,34 +71,36 @@ erDiagram
 
 プロフィールカードの情報を保存するテーブル。
 
-| カラム | 型 | NULL | デフォルト | 説明 |
-|--------|-----|------|-----------|------|
-| id | uuid | NO | gen_random_uuid() | 主キー、シェアURLに使用 |
-| user_id | uuid | NO | - | ユーザーID（外部キー） |
-| game | varchar(50) | NO | - | ゲーム種別（valorant等） |
-| player_name | varchar(20) | NO | - | ゲーム内ネーム |
-| rank | varchar(50) | NO | - | ランク |
-| agents | text[] | NO | - | メインエージェント（配列） |
-| play_style | varchar(50) | NO | - | プレイスタイル |
-| bio | varchar(100) | YES | NULL | ひとこと自己紹介 |
-| x_id | varchar(50) | YES | NULL | X ID |
-| discord_id | varchar(50) | YES | NULL | Discord ID |
-| profile_image_url | text | YES | NULL | プロフィール画像URL |
-| background | varchar(50) | NO | 'default' | 背景種別 |
-| theme | varchar(10) | NO | 'dark' | テーマ（light/dark） |
-| created_at | timestamptz | NO | now() | 作成日時 |
-| updated_at | timestamptz | NO | now() | 更新日時 |
+| カラム            | 型           | NULL | デフォルト        | 説明                       |
+| ----------------- | ------------ | ---- | ----------------- | -------------------------- |
+| id                | uuid         | NO   | gen_random_uuid() | 主キー、シェアURLに使用    |
+| user_id           | uuid         | NO   | -                 | ユーザーID（外部キー）     |
+| game              | varchar(50)  | NO   | -                 | ゲーム種別（valorant等）   |
+| player_name       | varchar(20)  | NO   | -                 | ゲーム内ネーム             |
+| rank              | varchar(50)  | NO   | -                 | ランク                     |
+| agents            | text[]       | NO   | -                 | メインエージェント（配列） |
+| play_style        | varchar(50)  | NO   | -                 | プレイスタイル             |
+| bio               | varchar(100) | YES  | NULL              | ひとこと自己紹介           |
+| x_id              | varchar(50)  | YES  | NULL              | X ID                       |
+| discord_id        | varchar(50)  | YES  | NULL              | Discord ID                 |
+| profile_image_url | text         | YES  | NULL              | プロフィール画像URL        |
+| background        | varchar(50)  | NO   | 'default'         | 背景種別                   |
+| theme             | varchar(10)  | NO   | 'dark'            | テーマ（light/dark）       |
+| created_at        | timestamptz  | NO   | now()             | 作成日時                   |
+| updated_at        | timestamptz  | NO   | now()             | 更新日時                   |
 
 #### インデックス
-| インデックス名 | カラム | 種別 |
-|---------------|--------|------|
-| cards_pkey | id | PRIMARY |
-| cards_user_id_idx | user_id | INDEX |
-| cards_created_at_idx | created_at | INDEX |
+
+| インデックス名       | カラム     | 種別    |
+| -------------------- | ---------- | ------- |
+| cards_pkey           | id         | PRIMARY |
+| cards_user_id_idx    | user_id    | INDEX   |
+| cards_created_at_idx | created_at | INDEX   |
 
 #### 外部キー
-| 制約名 | カラム | 参照 |
-|--------|--------|------|
+
+| 制約名             | カラム  | 参照     |
+| ------------------ | ------- | -------- |
 | cards_user_id_fkey | user_id | users.id |
 
 ---
@@ -218,12 +221,12 @@ CREATE TRIGGER on_auth_user_created
 
 プロフィール画像を保存するバケット。
 
-| 設定 | 値 |
-|------|-----|
-| バケット名 | profile-images |
-| 公開設定 | Public（読み取りのみ） |
-| ファイルサイズ上限 | 5MB |
-| 許可形式 | image/jpeg, image/png, image/webp |
+| 設定               | 値                                |
+| ------------------ | --------------------------------- |
+| バケット名         | profile-images                    |
+| 公開設定           | Public（読み取りのみ）            |
+| ファイルサイズ上限 | 5MB                               |
+| 許可形式           | image/jpeg, image/png, image/webp |
 
 ```sql
 -- 認証ユーザーのみアップロード可能

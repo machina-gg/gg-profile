@@ -74,36 +74,41 @@ flowchart TB
 
 開発を始める前に、以下の MCP を設定してください：
 
-| MCP | 用途 | 必要なタイミング |
-|-----|------|-----------------|
-| GitHub MCP | Issue 管理 | 設計フェーズ（必須） |
-| Vercel MCP | デプロイ | デプロイフェーズ（必須） |
+| MCP        | 用途       | 必要なタイミング         |
+| ---------- | ---------- | ------------------------ |
+| GitHub MCP | Issue 管理 | 設計フェーズ（必須）     |
+| Vercel MCP | デプロイ   | デプロイフェーズ（必須） |
 
 設定ガイド：
+
 - [GitHub MCP 設定](./SETUP_GITHUB_MCP.md)
 - [Vercel MCP 設定](./SETUP_VERCEL_MCP.md)
 
 ## フェーズ詳細
 
 ### 1. 要件定義
+
 - **コマンド**: `/project:requirements`
 - **処理内容**: INPUT.md 確認 → 競合調査 → PRD 作成
 - **成果物**: reports/COMPETITIVE_ANALYSIS.md, docs/PRD.md
 - **MCP確認**: GitHub MCP 未設定の場合、設定を推奨（ブロックしない）
 
 ### 2. 設計
+
 - **コマンド**: `/project:design`
 - **処理内容**: PRD.md 確認 → 全体設計・画面設計 → タスク起票
 - **成果物**: docs/DESIGN.md, docs/SCREEN.md, docs/COMPONENT.md, GitHub Issues
 - **MCP確認**: GitHub MCP 未設定の場合、設定を要求（Issue 作成に必須）
 
 ### 3. API設計（オプション）
+
 - **コマンド**: `/project:api`
 - **処理内容**: DESIGN.md 確認 → API定義
 - **成果物**: docs/openapi.yaml
 - **スキップ条件**: フロントエンドのみのアプリ（外部API/バックエンド不要）
 
 ### 4. 環境構築
+
 - **コマンド**: `/project:setup`
 - **処理内容**:
   - src/ 無ければ環境構築（一時ディレクトリ経由で create-next-app）
@@ -114,6 +119,7 @@ flowchart TB
 - **スキップ条件**: src/ が既に存在する場合
 
 ### 5. プロトタイプ
+
 - **コマンド**: `/project:prototype`
 - **処理内容**:
   - 共通UIコンポーネント実装
@@ -125,6 +131,7 @@ flowchart TB
 - **完了条件**: デザインコンセプトがユーザーに承認されること
 
 ### 6. 本実装
+
 - **コマンド**: `/project:implement`
 - **処理内容**:
   - プロトタイプ完了を確認
@@ -138,10 +145,12 @@ flowchart TB
 - **前提条件**: `/project:prototype` が完了していること
 
 ### 7. 繰り返し
+
 - **コマンド**: `/project:continue`
 - **処理内容**: Open な Issue 確認 → 次のタスク実装
 
 ### 8. デプロイ
+
 - **コマンド**: `/project:deploy`
 - **処理内容**:
   - ビルド確認（npm run build）
@@ -154,8 +163,8 @@ flowchart TB
 
 ## その他のコマンド
 
-| コマンド | 説明 |
-|----------|------|
+| コマンド          | 説明                 |
+| ----------------- | -------------------- |
 | `/project:review` | コードレビューと修正 |
 
 ## 環境構築の注意

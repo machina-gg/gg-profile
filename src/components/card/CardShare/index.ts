@@ -1,0 +1,1 @@
+export { CardShare } from './CardShare'

@@ -3,60 +3,66 @@
 ## 1. コンポーネント一覧
 
 ### UI コンポーネント（shadcn/ui）
-| コンポーネント名 | 種別 | 説明 |
-|-----------------|------|------|
-| Button | ui | 汎用ボタン |
-| Input | ui | テキスト入力 |
-| Textarea | ui | 複数行テキスト入力 |
-| Select | ui | セレクトボックス |
-| Label | ui | フォームラベル |
-| Card | ui | カードコンテナ |
-| Avatar | ui | プロフィール画像表示 |
-| Badge | ui | バッジ（ランク表示等） |
-| Toast | ui | 通知トースト |
-| Skeleton | ui | ローディング表示 |
+
+| コンポーネント名 | 種別 | 説明                   |
+| ---------------- | ---- | ---------------------- |
+| Button           | ui   | 汎用ボタン             |
+| Input            | ui   | テキスト入力           |
+| Textarea         | ui   | 複数行テキスト入力     |
+| Select           | ui   | セレクトボックス       |
+| Label            | ui   | フォームラベル         |
+| Card             | ui   | カードコンテナ         |
+| Avatar           | ui   | プロフィール画像表示   |
+| Badge            | ui   | バッジ（ランク表示等） |
+| Toast            | ui   | 通知トースト           |
+| Skeleton         | ui   | ローディング表示       |
 
 ### 認証コンポーネント
-| コンポーネント名 | 種別 | 説明 |
-|-----------------|------|------|
-| LoginButton | auth | ログインボタン（Discord/Google） |
-| LogoutButton | auth | ログアウトボタン |
-| AuthGuard | auth | 認証必須ページのラッパー |
-| UserMenu | auth | ユーザーメニュー（アバター+ドロップダウン） |
+
+| コンポーネント名 | 種別 | 説明                                        |
+| ---------------- | ---- | ------------------------------------------- |
+| LoginButton      | auth | ログインボタン（Discord/Google）            |
+| LogoutButton     | auth | ログアウトボタン                            |
+| AuthGuard        | auth | 認証必須ページのラッパー                    |
+| UserMenu         | auth | ユーザーメニュー（アバター+ドロップダウン） |
 
 ### レイアウトコンポーネント
-| コンポーネント名 | 種別 | 説明 |
-|-----------------|------|------|
-| Header | layout | 共通ヘッダー |
-| Footer | layout | 共通フッター |
-| Container | layout | コンテンツ幅制限コンテナ |
+
+| コンポーネント名 | 種別   | 説明                     |
+| ---------------- | ------ | ------------------------ |
+| Header           | layout | 共通ヘッダー             |
+| Footer           | layout | 共通フッター             |
+| Container        | layout | コンテンツ幅制限コンテナ |
 
 ### カードコンポーネント
-| コンポーネント名 | 種別 | 説明 |
-|-----------------|------|------|
-| ProfileCard | card | プロフィールカード本体 |
-| CardPreview | card | カードプレビュー表示 |
-| CardShare | card | シェアボタン群 |
+
+| コンポーネント名 | 種別 | 説明                   |
+| ---------------- | ---- | ---------------------- |
+| ProfileCard      | card | プロフィールカード本体 |
+| CardPreview      | card | カードプレビュー表示   |
+| CardShare        | card | シェアボタン群         |
 
 ### フォームコンポーネント
-| コンポーネント名 | 種別 | 説明 |
-|-----------------|------|------|
-| CardForm | form | カード作成フォーム全体 |
-| GameSelector | form | ゲーム選択 |
-| RankSelector | form | ランク選択 |
-| AgentSelector | form | エージェント選択（複数可） |
-| PlayStyleSelector | form | プレイスタイル選択 |
-| ImageUploader | form | 画像アップロード |
-| SnsInput | form | SNS ID入力 |
-| BackgroundSelector | form | 背景選択 |
-| ThemeToggle | form | テーマ切替 |
+
+| コンポーネント名   | 種別 | 説明                       |
+| ------------------ | ---- | -------------------------- |
+| CardForm           | form | カード作成フォーム全体     |
+| GameSelector       | form | ゲーム選択                 |
+| RankSelector       | form | ランク選択                 |
+| AgentSelector      | form | エージェント選択（複数可） |
+| PlayStyleSelector  | form | プレイスタイル選択         |
+| ImageUploader      | form | 画像アップロード           |
+| SnsInput           | form | SNS ID入力                 |
+| BackgroundSelector | form | 背景選択                   |
+| ThemeToggle        | form | テーマ切替                 |
 
 ### ページコンポーネント
-| コンポーネント名 | 種別 | 説明 |
-|-----------------|------|------|
-| HeroSection | page | トップページヒーローセクション |
-| FeatureSection | page | 特徴紹介セクション |
-| ProfileDetail | page | プロフィール詳細表示 |
+
+| コンポーネント名 | 種別 | 説明                           |
+| ---------------- | ---- | ------------------------------ |
+| HeroSection      | page | トップページヒーローセクション |
+| FeatureSection   | page | 特徴紹介セクション             |
+| ProfileDetail    | page | プロフィール詳細表示           |
 
 ## 2. コンポーネント階層図
 
@@ -161,6 +167,7 @@ graph TD
 プロフィールカードの本体。OGP画像生成とPNGダウンロードの両方で使用。
 
 #### Props
+
 ```typescript
 type ProfileCardProps = {
   data: {
@@ -181,6 +188,7 @@ type ProfileCardProps = {
 ```
 
 #### 用途
+
 - カード作成ページのリアルタイムプレビュー
 - プレビューページのカード表示
 - プロフィールページのカード表示
@@ -193,6 +201,7 @@ type ProfileCardProps = {
 カード作成フォーム全体を管理するコンポーネント。
 
 #### Props
+
 ```typescript
 type CardFormProps = {
   onSubmit: (data: CardFormData) => void
@@ -217,6 +226,7 @@ type CardFormData = {
 ```
 
 #### 用途
+
 - カード作成ページで使用
 - React Hook Form + Zod でバリデーション管理
 
@@ -227,6 +237,7 @@ type CardFormData = {
 カードのリアルタイムプレビュー表示。
 
 #### Props
+
 ```typescript
 type CardPreviewProps = {
   data: CardFormData
@@ -235,6 +246,7 @@ type CardPreviewProps = {
 ```
 
 #### 用途
+
 - カード作成ページでフォーム横に表示
 - ref を渡して html-to-image でキャプチャ可能
 
@@ -245,6 +257,7 @@ type CardPreviewProps = {
 シェアボタン群（ダウンロード、URLコピー、Xシェア）。
 
 #### Props
+
 ```typescript
 type CardShareProps = {
   cardId: string
@@ -254,6 +267,7 @@ type CardShareProps = {
 ```
 
 #### 用途
+
 - プレビューページで使用
 - 各シェアアクションを実行
 
@@ -264,6 +278,7 @@ type CardShareProps = {
 対応ゲームの選択。
 
 #### Props
+
 ```typescript
 type GameSelectorProps = {
   value: string
@@ -273,6 +288,7 @@ type GameSelectorProps = {
 ```
 
 #### 用途
+
 - カード作成フォームで使用
 - 選択したゲームに応じてランク・エージェントの選択肢が変わる
 
@@ -283,6 +299,7 @@ type GameSelectorProps = {
 ランクの選択。ゲームごとに異なるランク体系に対応。
 
 #### Props
+
 ```typescript
 type RankSelectorProps = {
   game: string
@@ -293,6 +310,7 @@ type RankSelectorProps = {
 ```
 
 #### 用途
+
 - カード作成フォームで使用
 - game props に応じて選択肢を動的に変更
 
@@ -303,6 +321,7 @@ type RankSelectorProps = {
 メインエージェント/キャラクターの選択（複数可）。
 
 #### Props
+
 ```typescript
 type AgentSelectorProps = {
   game: string
@@ -314,6 +333,7 @@ type AgentSelectorProps = {
 ```
 
 #### 用途
+
 - カード作成フォームで使用
 - 最大3体まで選択可能（デフォルト）
 
@@ -324,6 +344,7 @@ type AgentSelectorProps = {
 プロフィール画像のアップロード。
 
 #### Props
+
 ```typescript
 type ImageUploaderProps = {
   value?: string
@@ -335,6 +356,7 @@ type ImageUploaderProps = {
 ```
 
 #### 用途
+
 - カード作成フォームで使用
 - アップロードまたはプリセットから選択
 
@@ -345,6 +367,7 @@ type ImageUploaderProps = {
 SNS ID の入力フィールド。
 
 #### Props
+
 ```typescript
 type SnsInputProps = {
   platform: 'x' | 'discord'
@@ -355,6 +378,7 @@ type SnsInputProps = {
 ```
 
 #### 用途
+
 - カード作成フォームで使用
 - プラットフォームごとに適切なバリデーション
 
@@ -365,6 +389,7 @@ type SnsInputProps = {
 カード背景の選択。
 
 #### Props
+
 ```typescript
 type BackgroundSelectorProps = {
   game: string
@@ -375,6 +400,7 @@ type BackgroundSelectorProps = {
 ```
 
 #### 用途
+
 - カード作成フォームで使用
 - ゲームごとに異なる背景オプション
 
@@ -385,6 +411,7 @@ type BackgroundSelectorProps = {
 共通ヘッダー。
 
 #### Props
+
 ```typescript
 type HeaderProps = {
   showCreateButton?: boolean
@@ -392,6 +419,7 @@ type HeaderProps = {
 ```
 
 #### 用途
+
 - 全ページ共通で表示
 - ロゴ、ナビゲーションを含む
 
@@ -402,11 +430,13 @@ type HeaderProps = {
 共通フッター。
 
 #### Props
+
 ```typescript
 type FooterProps = {}
 ```
 
 #### 用途
+
 - 全ページ共通で表示
 - コピーライト、利用規約リンクを含む
 
@@ -414,12 +444,12 @@ type FooterProps = {}
 
 ## 4. コンポーネント命名規則
 
-| 対象 | 規則 | 例 |
-|------|------|-----|
-| コンポーネント | PascalCase | `ProfileCard.tsx` |
-| Props型 | コンポーネント名 + Props | `ProfileCardProps` |
-| ディレクトリ | PascalCase | `ProfileCard/` |
-| テストファイル | コンポーネント名 + .test | `ProfileCard.test.tsx` |
+| 対象            | 規則                        | 例                        |
+| --------------- | --------------------------- | ------------------------- |
+| コンポーネント  | PascalCase                  | `ProfileCard.tsx`         |
+| Props型         | コンポーネント名 + Props    | `ProfileCardProps`        |
+| ディレクトリ    | PascalCase                  | `ProfileCard/`            |
+| テストファイル  | コンポーネント名 + .test    | `ProfileCard.test.tsx`    |
 | Storiesファイル | コンポーネント名 + .stories | `ProfileCard.stories.tsx` |
 
 ## 5. ディレクトリ構成例
