@@ -23,6 +23,7 @@ type CardFormProps = {
   onChange?: (data: CardFormValues) => void
   initialData?: Partial<CardFormValues>
   isSubmitting?: boolean
+  submitLabel?: string
 }
 
 const defaultValues: CardFormValues = {
@@ -44,6 +45,7 @@ export function CardForm({
   onChange,
   initialData,
   isSubmitting,
+  submitLabel,
 }: CardFormProps) {
   const {
     register,
@@ -212,7 +214,7 @@ export function CardForm({
         size="lg"
         disabled={isSubmitting}
       >
-        {isSubmitting ? '作成中...' : 'カードを作成する'}
+        {isSubmitting ? '処理中...' : submitLabel || 'カードを作成する'}
       </Button>
     </form>
   )

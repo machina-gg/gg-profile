@@ -47,9 +47,12 @@ export function Header({ showCreateButton = true }: HeaderProps) {
   const handleLogout = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
+    window.location.href = '/'
   }
 
+  // カスタム表示名 > OAuthプロバイダーの名前 > メールアドレス の優先順位
   const userName =
+    user?.user_metadata?.custom_display_name ||
     user?.user_metadata?.full_name ||
     user?.user_metadata?.name ||
     user?.email?.split('@')[0] ||

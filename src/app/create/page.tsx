@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation'
 import { CardForm } from '@/components/form/CardForm'
 import { CardPreview } from '@/components/card/CardPreview'
 import { createClient } from '@/lib/supabase/client'
+import { saveCard } from '@/app/actions/card'
 import type { CardFormValues } from '@/lib/validations/card'
+import type { User } from '@supabase/supabase-js'
 
 const defaultFormData: CardFormValues = {
   game: 'valorant',
@@ -27,20 +29,21 @@ export default function CreatePage() {
   const [formData, setFormData] = useState<CardFormValues>(defaultFormData)
   const [initialData, setInitialData] = useState<Partial<CardFormValues>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
 
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
 
+      // Discord連携がある場合、ユーザー名を自動入力
       if (session?.user) {
         const providers = session.user.app_metadata?.providers as string[] | undefined
         const metadata = session.user.user_metadata
 
-        // Discord連携がある場合、ユーザー名を自動入力
         if (providers?.includes('discord') && metadata) {
-          // full_name (ユーザー名) を優先、なければ name (ユーザー名#タグ)
           const discordUsername = metadata.full_name || metadata.name
 
           if (discordUsername) {
@@ -51,7 +54,7 @@ export default function CreatePage() {
       }
     }
 
-    fetchUserData()
+    fetchData()
   }, [])
 
   const handleFormChange = useCallback((data: CardFormValues) => {
@@ -62,6 +65,17 @@ export default function CreatePage() {
     setIsSubmitting(true)
 
     try {
+      // ログイン済みの場合は自動保存してカード詳細ページへ遷移
+      if (user) {
+        const result = await saveCard(data)
+
+        if (!result.error && result.cardId) {
+          router.push(`/cards/${result.cardId}`)
+          return
+        }
+      }
+
+      // 未ログインの場合はクエリパラメータでプレビューへ遷移
       const params = new URLSearchParams()
       params.set('game', data.game)
       params.set('playerName', data.playerName)
@@ -83,7 +97,7 @@ export default function CreatePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-16">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-center mb-8">
           プロフィールカードを作成

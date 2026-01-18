@@ -7,7 +7,7 @@ type LoginPageProps = {
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const { redirect } = await searchParams
-  const redirectTo = redirect || '/create'
+  const redirectTo = redirect || '/mypage'
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
